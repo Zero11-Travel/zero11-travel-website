@@ -29,3 +29,6 @@ pnpm-workspace.yaml
 # Source documents (internal reference only)
 *.pdf
 *.docx
+
+# Claude Code local session metadata
+.claude/

@@ -136,14 +136,29 @@ pnpm preview         # Preview production build
 ✅ Verified live in-browser: full desktop walkthrough of every page, contact form
    submitted end-to-end (success state confirmed), zero console errors
 ✅ Production build (`pnpm build`) verified passing
+✅ `netlify.toml` added — SSR build (`nuxt build`, not `generate`) so the
+   contact form's API route keeps working; Netlify auto-detects Nitro and
+   deploys it as a Function
+⚠️ Mobile viewport (375px) was **not** visually verified — the Chrome
+   automation tool available in this session runs in a fixed 1440×900 virtual
+   display; `resize_window` reports success but `window.innerWidth` never
+   actually changes (confirmed via direct JS check). Code follows the same
+   mobile-first Tailwind patterns (`sm:`/`lg:` breakpoints, header hamburger
+   menu) as all 12 sibling sites, but treat this as unverified until checked
+   on a real device or a different tool
 ⏳ **Needs client input before go-live:**
    - Real SMTP credentials in `.env` (see `.env.example`) so enquiries actually send
    - Vector/high-res logo source if available (current logo was extracted from a PDF)
    - Real photography — Gemini image generation was attempted for original hero/tour
-     imagery but the configured `GEMINI_API_KEY` returned HTTP 401 (invalid credentials);
-     current design intentionally uses icon+gradient treatments instead of the
-     Alamy-watermarked stock photos found in the source PDFs (not licensed for
-     production use). Fix the API key or supply client photos to upgrade visuals.
+     imagery but `GEMINI_API_KEY` on this machine returns HTTP 401. Root cause found:
+     the value isn't a Gemini API key at all — it's a 53-char Google OAuth-style token
+     (`AQ.Ab8...`), not the `AIzaSy...`-style key (~39 chars) issued at
+     https://aistudio.google.com/apikey. A fix attempt via `setx` on 2026-09-14 did not
+     take (verified by reading the registry directly — value unchanged). Needs a
+     genuinely new key generated and persisted, then a fresh session, before
+     regenerating imagery. Current design intentionally uses icon+gradient treatments
+     instead of the Alamy-watermarked stock photos found in the source PDFs (not
+     licensed for production use).
    - reCAPTCHA site/secret keys (optional — form works without them)
    - Testimonials/reviews content (none existed in source material)
 
