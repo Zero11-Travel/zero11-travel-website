@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { TruckIcon, UserGroupIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 
-useHead({
+useSeoMeta({
   title: 'Our Fleet | Zero11 Travel & Tours',
-  meta: [
-    { name: 'description', content: 'A well-maintained fleet including sedans, executive Mercedes-Benz vehicles and shuttle vans for airport transfers, chauffeur drive and tours.' },
-  ],
+  ogTitle: 'Our Fleet | Zero11 Travel & Tours',
+  description: 'A well-maintained fleet including sedans, executive Mercedes-Benz vehicles and shuttle vans for airport transfers, chauffeur drive and tours.',
+  ogDescription: 'A well-maintained fleet including sedans, executive Mercedes-Benz vehicles and shuttle vans for airport transfers, chauffeur drive and tours.',
+  twitterTitle: 'Our Fleet | Zero11 Travel & Tours',
+  twitterDescription: 'Sedans, executive Mercedes-Benz vehicles and shuttle vans for every trip.',
 })
 
 const fleet = [

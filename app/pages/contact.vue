@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { PhoneIcon, EnvelopeIcon, MapPinIcon, ClockIcon } from '@heroicons/vue/24/outline'
 
-useHead({
+useSeoMeta({
   title: 'Contact Us | Zero11 Travel & Tours',
-  meta: [
-    { name: 'description', content: 'Get in touch with Zero11 Travel & Tours for airport transfers, chauffeur drive and tour bookings. Call, WhatsApp or send us an enquiry.' },
-  ],
+  ogTitle: 'Contact Us | Zero11 Travel & Tours',
+  description: 'Get in touch with Zero11 Travel & Tours for airport transfers, chauffeur drive and tour bookings. Call, WhatsApp or send us an enquiry.',
+  ogDescription: 'Get in touch with Zero11 Travel & Tours for airport transfers, chauffeur drive and tour bookings. Call, WhatsApp or send us an enquiry.',
+  twitterTitle: 'Contact Us | Zero11 Travel & Tours',
+  twitterDescription: 'Call, WhatsApp or send us an enquiry for your next transfer or tour.',
 })
 
 const contactDetails = [

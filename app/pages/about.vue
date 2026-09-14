@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { HeartIcon, ShieldCheckIcon, ClockIcon, CheckBadgeIcon, CheckIcon } from '@heroicons/vue/24/outline'
 
-useHead({
+useSeoMeta({
   title: 'About Us | Zero11 Travel & Tours',
-  meta: [
-    { name: 'description', content: 'Zero11 Tours and Transfers (Pty) Ltd — a 100% black-owned, B-BBEE Level 1 travel company based in Midrand, Johannesburg, led by Director Kgothatso Shogole.' },
-  ],
+  ogTitle: 'About Us | Zero11 Travel & Tours',
+  description: 'Zero11 Tours and Transfers (Pty) Ltd — a 100% black-owned, B-BBEE Level 1 travel company based in Midrand, Johannesburg, led by Director Kgothatso Shogole.',
+  ogDescription: 'Zero11 Tours and Transfers (Pty) Ltd — a 100% black-owned, B-BBEE Level 1 travel company based in Midrand, Johannesburg, led by Director Kgothatso Shogole.',
+  twitterTitle: 'About Us | Zero11 Travel & Tours',
+  twitterDescription: 'A 100% black-owned, B-BBEE Level 1 travel company based in Midrand, Johannesburg.',
 })
 
 const values = [

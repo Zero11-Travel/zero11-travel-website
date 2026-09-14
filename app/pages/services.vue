@@ -12,11 +12,13 @@ import {
   CloudIcon,
 } from '@heroicons/vue/24/outline'
 
-useHead({
+useSeoMeta({
   title: 'Our Services | Zero11 Travel & Tours',
-  meta: [
-    { name: 'description', content: 'Chauffeur drivers, point-to-point and door-to-door transfers, corporate shuttle services and tailor-made tours from Zero11 Travel & Tours.' },
-  ],
+  ogTitle: 'Our Services | Zero11 Travel & Tours',
+  description: 'Chauffeur drivers, point-to-point and door-to-door transfers, corporate shuttle services and tailor-made tours from Zero11 Travel & Tours.',
+  ogDescription: 'Chauffeur drivers, point-to-point and door-to-door transfers, corporate shuttle services and tailor-made tours from Zero11 Travel & Tours.',
+  twitterTitle: 'Our Services | Zero11 Travel & Tours',
+  twitterDescription: 'Chauffeur drivers, transfers, corporate shuttle services and tailor-made tours.',
 })
 
 const services = [

@@ -16,8 +16,13 @@ import {
   ChevronRightIcon,
 } from '@heroicons/vue/24/outline'
 
-useHead({
+useSeoMeta({
   title: 'Zero11 Travel & Tours | Airport Transfers, Chauffeur Drive & Tours in South Africa',
+  ogTitle: 'Zero11 Travel & Tours | Airport Transfers, Chauffeur Drive & Tours in South Africa',
+  description: 'Safe, reliable and professional chauffeur drive, airport transfers, shuttle services and tours across Johannesburg, Durban and Cape Town. Your global travel companion, Africa awaits!',
+  ogDescription: 'Safe, reliable and professional chauffeur drive, airport transfers, shuttle services and tours across Johannesburg, Durban and Cape Town. Your global travel companion, Africa awaits!',
+  twitterTitle: 'Zero11 Travel & Tours | Airport Transfers, Chauffeur Drive & Tours in South Africa',
+  twitterDescription: 'Safe, reliable and professional chauffeur drive, airport transfers, shuttle services and tours across Johannesburg, Durban and Cape Town.',
 })
 
 const services = [

@@ -186,6 +186,23 @@ pnpm preview         # Preview production build
    questions needing unverified specifics (cancellation policy, exact
    pricing, booking lead time) were deliberately phrased generically
    ("contact us to arrange...") rather than inventing answers
+✅ Completeness audit (2026-09-14) across all 8 pages — found and fixed:
+   - `og:title`/`og:description`/`twitter:title`/`twitter:description` were
+     completely missing on every page (only the global site-wide `og:image`/
+     `og:type` from `nuxt.config.ts` rendered) — sharing any page link on
+     WhatsApp or social media showed no title in the preview card. All 8
+     pages switched from `useHead` to `useSeoMeta` for per-page social tags
+   - `ContactForm.vue` collects personal information but never linked to
+     `/privacy-policy` — added a consent line above the submit button
+   - The "Preferred Travel Date" field had no `min` attribute, so a customer
+     could select a date in the past — added `:min="todayIso"`
+   - Required fields (name, email, service, message) showed a visual `*` but
+     had no `aria-required` — added to all four (native `required` was
+     deliberately not added, to avoid the browser's default validation UI
+     conflicting with the form's own custom error messages)
+   - Verified: all 8 routes appear in the sitemap, nav links are consistent
+     across header/footer, phone/email/WhatsApp numbers match everywhere,
+     no leftover TODO/FIXME/placeholder comments, clean git status
 ⏳ **Needs client input before go-live:**
    - Real SMTP credentials in `.env` (see `.env.example`) so enquiries actually send
    - Vector/high-res logo source if available (current logo was extracted from a PDF)

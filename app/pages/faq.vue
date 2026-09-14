@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ChevronDownIcon } from '@heroicons/vue/24/outline'
 
-useHead({
+useSeoMeta({
   title: 'Frequently Asked Questions | Zero11 Travel & Tours',
-  meta: [
-    { name: 'description', content: 'Answers to common questions about booking, payment, fleet, and services with Zero11 Travel & Tours.' },
-  ],
+  ogTitle: 'Frequently Asked Questions | Zero11 Travel & Tours',
+  description: 'Answers to common questions about booking, payment, fleet, and services with Zero11 Travel & Tours.',
+  ogDescription: 'Answers to common questions about booking, payment, fleet, and services with Zero11 Travel & Tours.',
+  twitterTitle: 'Frequently Asked Questions | Zero11 Travel & Tours',
+  twitterDescription: 'Answers to common questions about booking, payment and services.',
 })
 
 const faqs = [

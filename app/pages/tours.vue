@@ -10,11 +10,13 @@ import {
   BeakerIcon,
 } from '@heroicons/vue/24/outline'
 
-useHead({
+useSeoMeta({
   title: 'Tours & Sightseeing | Zero11 Travel & Tours',
-  meta: [
-    { name: 'description', content: 'Tailor-made tours to Johannesburg, Soweto, the Apartheid Museum, Gold Reef City, Sun City, Pilanesberg, Cradle of Humankind and Big Five safaris across South Africa.' },
-  ],
+  ogTitle: 'Tours & Sightseeing | Zero11 Travel & Tours',
+  description: 'Tailor-made tours to Johannesburg, Soweto, the Apartheid Museum, Gold Reef City, Sun City, Pilanesberg, Cradle of Humankind and Big Five safaris across South Africa.',
+  ogDescription: 'Tailor-made tours to Johannesburg, Soweto, the Apartheid Museum, Gold Reef City, Sun City, Pilanesberg, Cradle of Humankind and Big Five safaris across South Africa.',
+  twitterTitle: 'Tours & Sightseeing | Zero11 Travel & Tours',
+  twitterDescription: 'Tailor-made tours across South Africa — city tours, heritage sites and Big Five safaris.',
 })
 
 const tours = [

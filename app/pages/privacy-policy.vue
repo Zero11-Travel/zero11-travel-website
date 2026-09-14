@@ -1,11 +1,11 @@
 <script setup lang="ts">
 const lastUpdated = new Date().toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' })
 
-useHead({
+useSeoMeta({
   title: 'Privacy Policy | Zero11 Travel & Tours',
-  meta: [
-    { name: 'description', content: 'How Zero11 Tours and Transfers (Pty) Ltd collects, uses and protects your personal information, in line with South Africa\'s Protection of Personal Information Act (POPIA).' },
-  ],
+  ogTitle: 'Privacy Policy | Zero11 Travel & Tours',
+  description: 'How Zero11 Tours and Transfers (Pty) Ltd collects, uses and protects your personal information, in line with South Africa\'s Protection of Personal Information Act (POPIA).',
+  ogDescription: 'How Zero11 Tours and Transfers (Pty) Ltd collects, uses and protects your personal information, in line with POPIA.',
 })
 </script>
 

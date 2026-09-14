@@ -2,6 +2,8 @@
 import { reactive, ref } from 'vue'
 import { CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/vue/24/outline'
 
+const todayIso = new Date().toISOString().split('T')[0]
+
 const services = [
   'Airport Transfer',
   'Chauffeur Drive',
@@ -106,6 +108,7 @@ async function handleSubmit() {
           type="text"
           name="name"
           autocomplete="name"
+          aria-required="true"
           class="w-full rounded-lg border border-black/10 px-4 py-3 text-sm focus:border-zero11-red-600 focus:outline-none focus:ring-2 focus:ring-zero11-red-600/20"
           :aria-invalid="!!errors.name"
           :aria-describedby="errors.name ? 'name-error' : undefined"
@@ -121,6 +124,7 @@ async function handleSubmit() {
           type="email"
           name="email"
           autocomplete="email"
+          aria-required="true"
           class="w-full rounded-lg border border-black/10 px-4 py-3 text-sm focus:border-zero11-red-600 focus:outline-none focus:ring-2 focus:ring-zero11-red-600/20"
           :aria-invalid="!!errors.email"
           :aria-describedby="errors.email ? 'email-error' : undefined"
@@ -149,6 +153,7 @@ async function handleSubmit() {
           v-model="form.travelDate"
           type="date"
           name="travelDate"
+          :min="todayIso"
           class="w-full rounded-lg border border-black/10 px-4 py-3 text-sm focus:border-zero11-red-600 focus:outline-none focus:ring-2 focus:ring-zero11-red-600/20"
         />
       </div>
@@ -160,6 +165,7 @@ async function handleSubmit() {
         id="service"
         v-model="form.service"
         name="service"
+        aria-required="true"
         class="w-full rounded-lg border border-black/10 bg-white px-4 py-3 text-sm focus:border-zero11-red-600 focus:outline-none focus:ring-2 focus:ring-zero11-red-600/20"
         :aria-invalid="!!errors.service"
         :aria-describedby="errors.service ? 'service-error' : undefined"
@@ -177,6 +183,7 @@ async function handleSubmit() {
         v-model="form.message"
         name="message"
         rows="5"
+        aria-required="true"
         class="w-full rounded-lg border border-black/10 px-4 py-3 text-sm focus:border-zero11-red-600 focus:outline-none focus:ring-2 focus:ring-zero11-red-600/20"
         :aria-invalid="!!errors.message"
         :aria-describedby="errors.message ? 'message-error' : undefined"
@@ -202,5 +209,11 @@ async function handleSubmit() {
     >
       {{ status === 'submitting' ? 'Sending...' : 'Send Enquiry' }}
     </button>
+
+    <p class="text-xs text-zero11-black/50">
+      By submitting this form, you agree to our
+      <NuxtLink to="/privacy-policy" class="underline hover:text-zero11-red-600">Privacy Policy</NuxtLink>.
+      We'll only use your details to respond to your enquiry.
+    </p>
   </form>
 </template>
