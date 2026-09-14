@@ -41,11 +41,15 @@ function getRecaptchaToken(): Promise<string | undefined> {
   if (!recaptchaSiteKey || typeof window === 'undefined' || !window.grecaptcha) {
     return Promise.resolve(undefined)
   }
-  return new Promise((resolve) => {
+  const tokenPromise = new Promise<string | undefined>((resolve) => {
     window.grecaptcha!.ready(() => {
       window.grecaptcha!.execute(recaptchaSiteKey, { action: 'contact_form' }).then(resolve).catch(() => resolve(undefined))
     })
   })
+  // A blocked script/extension can prevent ready()'s callback from ever
+  // firing — never let submission hang indefinitely waiting on it.
+  const timeout = new Promise<string | undefined>(resolve => setTimeout(() => resolve(undefined), 6000))
+  return Promise.race([tokenPromise, timeout])
 }
 
 function validate(): boolean {

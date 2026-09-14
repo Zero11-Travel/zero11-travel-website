@@ -47,9 +47,15 @@ export default defineEventHandler(async (event: H3Event) => {
       throw createError({ statusCode: 400, statusMessage: 'Invalid email format' })
     }
 
-    // reCAPTCHA is optional until a site/secret key pair is configured
+    // reCAPTCHA is optional until a site/secret key pair is configured — but
+    // once a secret IS configured, a missing token means verification failed,
+    // not "skip verification" (a blocked script or a bot bypassing the page
+    // JS entirely would otherwise sail through unverified).
     const recaptchaSecret = useRuntimeConfig().recaptchaSecretKey
-    if (recaptchaSecret && formData['g-recaptcha-response']) {
+    if (recaptchaSecret) {
+      if (!formData['g-recaptcha-response']) {
+        throw createError({ statusCode: 400, statusMessage: 'reCAPTCHA verification required — please try again' })
+      }
       const recaptchaVerifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${encodeURIComponent(recaptchaSecret)}&response=${encodeURIComponent(formData['g-recaptcha-response'])}`
       const recaptchaResponseData = await $fetch<{ success: boolean; 'error-codes'?: string[] }>(recaptchaVerifyUrl, { method: 'POST' })
 
