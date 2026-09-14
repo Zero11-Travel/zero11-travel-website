@@ -26,6 +26,28 @@ const errors = reactive<Record<string, string>>({})
 const status = ref<'idle' | 'submitting' | 'success' | 'error'>('idle')
 const statusMessage = ref('')
 
+const { public: { recaptchaSiteKey } } = useRuntimeConfig()
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      ready: (cb: () => void) => void
+      execute: (siteKey: string, options: { action: string }) => Promise<string>
+    }
+  }
+}
+
+function getRecaptchaToken(): Promise<string | undefined> {
+  if (!recaptchaSiteKey || typeof window === 'undefined' || !window.grecaptcha) {
+    return Promise.resolve(undefined)
+  }
+  return new Promise((resolve) => {
+    window.grecaptcha!.ready(() => {
+      window.grecaptcha!.execute(recaptchaSiteKey, { action: 'contact_form' }).then(resolve).catch(() => resolve(undefined))
+    })
+  })
+}
+
 function validate(): boolean {
   Object.keys(errors).forEach(key => delete errors[key])
 
@@ -48,9 +70,10 @@ async function handleSubmit() {
   statusMessage.value = ''
 
   try {
+    const token = await getRecaptchaToken()
     await $fetch('/api/contact', {
       method: 'POST',
-      body: form,
+      body: { ...form, 'g-recaptcha-response': token },
     })
     status.value = 'success'
     statusMessage.value = "Thank you! Your enquiry has been sent — we'll be in touch shortly."

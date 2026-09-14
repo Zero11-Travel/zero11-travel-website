@@ -85,9 +85,9 @@ watch(() => route.fullPath, closeMenu)
       <div
         v-show="isMenuOpen"
         id="mobile-menu"
-        class="border-t border-black/5 bg-white lg:hidden"
+        class="border-t border-black/5 bg-white shadow-lg lg:hidden"
       >
-        <ul class="flex flex-col px-6 py-4">
+        <ul class="flex flex-col px-6 pb-8 pt-4">
           <li v-for="link in navLinks" :key="link.to">
             <NuxtLink
               :to="link.to"

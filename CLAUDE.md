@@ -112,8 +112,11 @@ pnpm preview         # Preview production build
 - **SEO:** `@nuxtjs/sitemap`, `@nuxtjs/robots`, `nuxt-schema-org` (Organization schema)
 - **Icons:** `@nuxt/icon`, `@heroicons/vue`, Font Awesome
 - **Contact form:** SMTP via `nodemailer`, rate limiting via `rate-limiter-flexible`,
-  optional reCAPTCHA, honeypot field (env-driven, following the pattern used on
-  `solid-rock.co.za`)
+  honeypot field, and a fully-wired reCAPTCHA v3 flow (env-driven, following the
+  pattern used on `solid-rock.co.za`): the script only loads when `RECAPTCHA_SITE_KEY`
+  is set (`nuxt.config.ts`), `ContactForm.vue` calls `grecaptcha.execute()` on submit
+  to get a token, and the server verifies it only if `RECAPTCHA_SECRET_KEY` is also
+  set — add both env vars and it activates with no code changes needed
 - **Favicons:** generated from the logo's emblem (`public/favicon.ico`,
   `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`)
 - **Social sharing:** `public/og-image.jpg` (branded gradient card) wired as
@@ -139,6 +142,13 @@ pnpm preview         # Preview production build
 ✅ `netlify.toml` added — SSR build (`nuxt build`, not `generate`) so the
    contact form's API route keeps working; Netlify auto-detects Nitro and
    deploys it as a Function
+✅ reCAPTCHA v3 fully wired client-to-server — previously only the server
+   checked for a token with no client-side code ever generating one, so it
+   would have silently never activated even after adding real keys
+✅ Fixed a real mobile bug: the header's mobile dropdown menu (`AppHeader.vue`)
+   butted directly against the hero section with no visual separation, reading
+   as an overlap — added `shadow-lg` + more bottom padding so it reads as a
+   floating panel instead
 ⚠️ Mobile viewport (375px) was **not** visually verified — the Chrome
    automation tool available in this session runs in a fixed 1440×900 virtual
    display; `resize_window` reports success but `window.innerWidth` never

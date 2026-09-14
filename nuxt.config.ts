@@ -75,6 +75,16 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
       ],
+      // Only load reCAPTCHA once a site key is actually configured — avoids
+      // loading Google's script on every page load for nothing.
+      script: process.env.RECAPTCHA_SITE_KEY
+        ? [
+            {
+              src: `https://www.google.com/recaptcha/api.js?render=${process.env.RECAPTCHA_SITE_KEY}`,
+              defer: true,
+            },
+          ]
+        : [],
     },
   },
   site: {
