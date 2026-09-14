@@ -31,6 +31,10 @@ export default defineNuxtConfig({
     public: {
       siteUrl,
       recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY,
+      // Remarketing/analytics — all optional, feature no-ops until set and
+      // the visitor grants marketing/analytics consent via the cookie banner
+      gtmContainerId: process.env.GTM_CONTAINER_ID,
+      metaPixelId: process.env.META_PIXEL_ID,
     },
   },
   colorMode: {

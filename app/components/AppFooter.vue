@@ -3,6 +3,10 @@ import { PhoneIcon, EnvelopeIcon, MapPinIcon } from '@heroicons/vue/24/outline'
 
 const year = new Date().getFullYear()
 
+function openCookieSettings() {
+  window.dispatchEvent(new CustomEvent('open-cookie-preferences'))
+}
+
 const quickLinks = [
   { label: 'About Us', to: '/about' },
   { label: 'Services', to: '/services' },
@@ -77,6 +81,7 @@ const services = [
         <p>&copy; {{ year }} Zero11 Tours and Transfers (Pty) Ltd. All rights reserved.</p>
         <div class="flex items-center gap-4">
           <NuxtLink to="/privacy-policy" class="transition-colors hover:text-zero11-orange-500">Privacy Policy</NuxtLink>
+          <button type="button" class="transition-colors hover:text-zero11-orange-500" @click="openCookieSettings">Cookie Settings</button>
           <span>Reg. 2018/341872/07 &middot; B-BBEE Level 1</span>
         </div>
       </div>

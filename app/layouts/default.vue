@@ -6,5 +6,6 @@
     </main>
     <AppFooter />
     <WhatsAppButton />
+    <CookieConsent />
   </div>
 </template>

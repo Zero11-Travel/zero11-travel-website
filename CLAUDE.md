@@ -97,7 +97,14 @@ Sedans (Toyota Corolla Quest, Mercedes C-Class), Hyundai H-1 Wagon, VW Kombi/shu
 | `ValueCard.vue` | Circular icon + title + description, used for Batho Pele values |
 | `StatBadge.vue` | Big number + label, used in the homepage stats bar |
 | `CTABanner.vue` | Full-width gradient call-to-action band with a button |
+| `CookieConsent.vue` | Cookie banner + preferences modal, gates GTM/Meta Pixel behind consent |
 | `ContactForm.vue` | Booking enquiry form — client validation, honeypot, posts to `/api/contact` |
+
+## Composables (`app/composables/`)
+| Composable | Purpose |
+|-----------|---------|
+| `useGoogleTagManager.ts` | Loads GTM lazily under Consent Mode v2; GA4 + Google Ads Remarketing are configured as tags inside the GTM dashboard, not here |
+| `useMetaPixel.ts` | Loads the Meta Pixel directly (not via GTM — simpler for a non-technical business owner to configure with just an ID) |
 
 ## Development Commands
 ```bash
@@ -203,6 +210,19 @@ pnpm preview         # Preview production build
    - Verified: all 8 routes appear in the sitemap, nav links are consistent
      across header/footer, phone/email/WhatsApp numbers match everywhere,
      no leftover TODO/FIXME/placeholder comments, clean git status
+✅ Cookie consent banner + remarketing infrastructure added (2026-09-14),
+   requested by the user specifically for Google Ads remarketing, Meta Pixel
+   and GA4. `CookieConsent.vue` uses Google Consent Mode v2 (everything
+   denied by default; GTM/Meta Pixel only load after the visitor grants
+   consent). Category naming was deliberately corrected from the
+   `amphagroup` pattern this was adapted from: their "Functionality" category
+   actually controls `ad_storage`/`ad_personalization` (advertising consent),
+   so this site calls it "Marketing & Advertising" instead — calling
+   advertising cookies "functionality" would have been misleading.
+   Verified end-to-end in-browser: banner appears, preferences modal opens/
+   saves/reopens correctly via the footer's "Cookie Settings" link,
+   `localStorage` persists the choice, zero console errors with both IDs
+   unset (safe no-op state until configured)
 ⏳ **Needs client input before go-live:**
    - Real SMTP credentials in `.env` (see `.env.example`) so enquiries actually send
    - Vector/high-res logo source if available (current logo was extracted from a PDF)
@@ -218,6 +238,14 @@ pnpm preview         # Preview production build
      licensed for production use).
    - reCAPTCHA site/secret keys (optional — form works without them)
    - Testimonials/reviews content (none existed in source material)
+   - `GTM_CONTAINER_ID` (from Google Tag Manager) — GA4 and Google Ads
+     Remarketing tags then need to be configured *inside the GTM dashboard*,
+     not in this codebase, once the client has a GTM account
+   - `META_PIXEL_ID` (from Meta Business Suite) — Facebook/Instagram
+     remarketing won't fire until this is set
+   - Without either ID set, the cookie consent banner still shows (so the
+     site is truthful about what it *could* track) but no tracking script
+     actually loads even if a visitor accepts
 
 ## Feature Ideas Considered But Not Built
 Found by comparing against sibling sites in `../` (2026-09-14) — deliberately
