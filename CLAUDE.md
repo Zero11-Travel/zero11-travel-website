@@ -81,6 +81,7 @@ Sedans (Toyota Corolla Quest, Mercedes C-Class), Hyundai H-1 Wagon, VW Kombi/shu
 | `/tours` | Tour packages & destinations |
 | `/fleet` | Vehicle fleet showcase |
 | `/contact` | Contact form, booking enquiry, WhatsApp/phone links |
+| `/faq` | Common questions (accordion), sourced from brochure/portfolio facts only |
 | `/privacy-policy` | POPIA-aligned privacy notice (linked in footer) |
 
 ## Components (`app/components/`)
@@ -179,6 +180,12 @@ pnpm preview         # Preview production build
    tracking cookies currently exist, so no cookie-consent banner was added —
    `amphagroup`'s heavier GTM-linked consent system would describe tracking
    that doesn't exist here)
+✅ `/faq` added (native `<details>`/`<summary>` accordion, no JS framework
+   needed, inherently keyboard/screen-reader accessible) — every answer is
+   sourced directly from the brochure/portfolio facts already in this file;
+   questions needing unverified specifics (cancellation policy, exact
+   pricing, booking lead time) were deliberately phrased generically
+   ("contact us to arrange...") rather than inventing answers
 ⏳ **Needs client input before go-live:**
    - Real SMTP credentials in `.env` (see `.env.example`) so enquiries actually send
    - Vector/high-res logo source if available (current logo was extracted from a PDF)
@@ -201,8 +208,6 @@ not built without the user's say-so, since each needs either real content
 that doesn't exist yet or would add complexity the site doesn't currently need:
 - **Testimonials section** (pattern exists on `solid-rock.co.za`) — no real
   client reviews exist in the source material; fabricating them would be dishonest
-- **FAQ page** — could genuinely help (booking process, payment methods,
-  cancellations) but needs real answers from the client, not invented ones
 - **Scroll-to-top button** (`amphagroup` has one) — minor UX nicety, low
   priority, easy to add if requested
 - **Cookie consent banner + GTM integration** (`amphagroup` has a full one) —
