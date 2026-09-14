@@ -117,6 +117,14 @@ pnpm preview         # Preview production build
   is set (`nuxt.config.ts`), `ContactForm.vue` calls `grecaptcha.execute()` on submit
   to get a token, and the server verifies it only if `RECAPTCHA_SECRET_KEY` is also
   set — add both env vars and it activates with no code changes needed
+- **Known limitation:** `rate-limiter-flexible`'s `RateLimiterMemory` (in
+  `server/utils/antispam.ts`) is in-process state — on Netlify Functions (or any
+  serverless platform) a fresh container resets the counter, so the rate limit
+  isn't strictly enforced across invocations in production. This matches the
+  same pattern used on `solid-rock.co.za`; a real fix needs a shared store
+  (Netlify Blobs, Upstash Redis, etc.), which is out of scope unless enquiry
+  volume/spam actually becomes a problem. The honeypot field, content
+  validation, and optional reCAPTCHA are the primary defenses in the meantime.
 - **Favicons:** generated from the logo's emblem (`public/favicon.ico`,
   `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`)
 - **Social sharing:** `public/og-image.jpg` (branded gradient card) wired as

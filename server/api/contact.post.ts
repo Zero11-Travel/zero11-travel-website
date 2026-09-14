@@ -13,6 +13,22 @@ interface EnquiryFormData {
   website?: string
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+/** Behind a proxy/CDN (e.g. Netlify), the socket address is the proxy's own IP. */
+function getClientIp(event: H3Event): string {
+  const forwarded = getRequestHeader(event, 'x-nf-client-connection-ip')
+    || getRequestHeader(event, 'x-forwarded-for')?.split(',')[0]?.trim()
+  return forwarded || event.node.req.socket.remoteAddress || 'unknown'
+}
+
 export default defineEventHandler(async (event: H3Event) => {
   try {
     const formData = await readBody<EnquiryFormData>(event)
@@ -32,9 +48,9 @@ export default defineEventHandler(async (event: H3Event) => {
     }
 
     // reCAPTCHA is optional until a site/secret key pair is configured
-    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY
+    const recaptchaSecret = useRuntimeConfig().recaptchaSecretKey
     if (recaptchaSecret && formData['g-recaptcha-response']) {
-      const recaptchaVerifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${formData['g-recaptcha-response']}`
+      const recaptchaVerifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${encodeURIComponent(recaptchaSecret)}&response=${encodeURIComponent(formData['g-recaptcha-response'])}`
       const recaptchaResponseData = await $fetch<{ success: boolean; 'error-codes'?: string[] }>(recaptchaVerifyUrl, { method: 'POST' })
 
       if (!recaptchaResponseData.success) {
@@ -59,14 +75,14 @@ export default defineEventHandler(async (event: H3Event) => {
             </div>
             <div style="padding: 28px 24px;">
               <div style="background: #FDF2EC; border-left: 4px solid #ED6823; padding: 14px 16px; border-radius: 6px; margin-bottom: 20px;">
-                <strong style="color: #0A0A0A;">Service Requested:</strong> ${formData.service}
+                <strong style="color: #0A0A0A;">Service Requested:</strong> ${escapeHtml(formData.service)}
               </div>
-              <p style="margin: 12px 0;"><strong>Name:</strong> ${formData.name}</p>
-              <p style="margin: 12px 0;"><strong>Email:</strong> ${formData.email}</p>
-              <p style="margin: 12px 0;"><strong>Phone:</strong> ${formData.phone || 'Not provided'}</p>
-              <p style="margin: 12px 0;"><strong>Preferred Travel Date:</strong> ${formData.travelDate || 'Not specified'}</p>
+              <p style="margin: 12px 0;"><strong>Name:</strong> ${escapeHtml(formData.name)}</p>
+              <p style="margin: 12px 0;"><strong>Email:</strong> ${escapeHtml(formData.email)}</p>
+              <p style="margin: 12px 0;"><strong>Phone:</strong> ${escapeHtml(formData.phone || 'Not provided')}</p>
+              <p style="margin: 12px 0;"><strong>Preferred Travel Date:</strong> ${escapeHtml(formData.travelDate || 'Not specified')}</p>
               <p style="margin: 12px 0;"><strong>Message:</strong></p>
-              <p style="white-space: pre-line; color: #333;">${formData.message.replace(/</g, '&lt;')}</p>
+              <p style="white-space: pre-line; color: #333;">${escapeHtml(formData.message)}</p>
             </div>
             <div style="background: #0A0A0A; color: #ffffff99; padding: 16px 24px; text-align: center; font-size: 12px;">
               Zero11 Tours and Transfers (Pty) Ltd &middot; Automated notification — please do not reply directly.
@@ -97,7 +113,7 @@ ${formData.message}
       html: htmlEmail,
       text: textEmail,
       from: process.env.DEFAULT_EMAIL_FROM,
-      spamIdentifier: event.node.req.socket.remoteAddress || 'unknown',
+      spamIdentifier: getClientIp(event),
     })
 
     return {

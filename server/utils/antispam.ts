@@ -25,7 +25,6 @@ export const validateEmailContent = (subject: string, html: string, text?: strin
     /lottery/i,
     /nigerian prince/i,
     /make money fast/i,
-    /\$\$\$|!!!/g,
   ]
 
   const content = `${subject} ${html} ${text || ''}`.toLowerCase()
