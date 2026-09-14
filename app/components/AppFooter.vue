@@ -72,9 +72,12 @@ const services = [
     </div>
 
     <div class="border-t border-white/10">
-      <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-xs text-white/50 sm:flex-row">
+      <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs text-white/50 sm:flex-row">
         <p>&copy; {{ year }} Zero11 Tours and Transfers (Pty) Ltd. All rights reserved.</p>
-        <p>Reg. 2018/341872/07 &middot; B-BBEE Level 1</p>
+        <div class="flex items-center gap-4">
+          <NuxtLink to="/privacy-policy" class="transition-colors hover:text-zero11-orange-500">Privacy Policy</NuxtLink>
+          <span>Reg. 2018/341872/07 &middot; B-BBEE Level 1</span>
+        </div>
       </div>
     </div>
   </footer>

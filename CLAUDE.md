@@ -81,6 +81,7 @@ Sedans (Toyota Corolla Quest, Mercedes C-Class), Hyundai H-1 Wagon, VW Kombi/shu
 | `/tours` | Tour packages & destinations |
 | `/fleet` | Vehicle fleet showcase |
 | `/contact` | Contact form, booking enquiry, WhatsApp/phone links |
+| `/privacy-policy` | POPIA-aligned privacy notice (linked in footer) |
 
 ## Components (`app/components/`)
 | Component | Purpose |
@@ -157,13 +158,27 @@ pnpm preview         # Preview production build
    butted directly against the hero section with no visual separation, reading
    as an overlap — added `shadow-lg` + more bottom padding so it reads as a
    floating panel instead
-⚠️ Mobile viewport (375px) was **not** visually verified — the Chrome
-   automation tool available in this session runs in a fixed 1440×900 virtual
-   display; `resize_window` reports success but `window.innerWidth` never
-   actually changes (confirmed via direct JS check). Code follows the same
-   mobile-first Tailwind patterns (`sm:`/`lg:` breakpoints, header hamburger
-   menu) as all 12 sibling sites, but treat this as unverified until checked
-   on a real device or a different tool
+✅ Mobile viewport verified on a real device/browser (the Chrome automation
+   tool in this session can't resize below 1440×900 — worked around by
+   running `pnpm dev --host 0.0.0.0` and having the client test on their own
+   phone/network over LAN; caught the mobile menu bug above this way)
+✅ Three `code-review` skill passes (targeting actual commit hashes, not
+   paths — a path target under-scoped to recent diffs only) plus a manual
+   accessibility sweep — found and fixed: HTML injection into notification
+   emails, IP-spoofable rate limiting behind Netlify's proxy, a spam filter
+   that would reject genuine "urgent!!!" bookings, unencoded reCAPTCHA
+   values, reCAPTCHA silently skipping instead of failing closed, and a
+   capitalization spam-check that was dead code since day one
+✅ `pnpm audit` found nodemailer had 10 known CVEs (2 high) at the version
+   inherited from the `solid-rock.co.za` pattern — upgraded to `^10.0.10`,
+   zero vulnerabilities now
+✅ `/privacy-policy` added after comparing against sibling sites — a genuine
+   gap, not a copied feature: this site's contact form collects personal
+   information with no privacy notice anywhere, a real POPIA-relevant issue.
+   Content is honest about what this site actually does (no analytics/
+   tracking cookies currently exist, so no cookie-consent banner was added —
+   `amphagroup`'s heavier GTM-linked consent system would describe tracking
+   that doesn't exist here)
 ⏳ **Needs client input before go-live:**
    - Real SMTP credentials in `.env` (see `.env.example`) so enquiries actually send
    - Vector/high-res logo source if available (current logo was extracted from a PDF)
@@ -179,6 +194,23 @@ pnpm preview         # Preview production build
      licensed for production use).
    - reCAPTCHA site/secret keys (optional — form works without them)
    - Testimonials/reviews content (none existed in source material)
+
+## Feature Ideas Considered But Not Built
+Found by comparing against sibling sites in `../` (2026-09-14) — deliberately
+not built without the user's say-so, since each needs either real content
+that doesn't exist yet or would add complexity the site doesn't currently need:
+- **Testimonials section** (pattern exists on `solid-rock.co.za`) — no real
+  client reviews exist in the source material; fabricating them would be dishonest
+- **FAQ page** — could genuinely help (booking process, payment methods,
+  cancellations) but needs real answers from the client, not invented ones
+- **Scroll-to-top button** (`amphagroup` has one) — minor UX nicety, low
+  priority, easy to add if requested
+- **Cookie consent banner + GTM integration** (`amphagroup` has a full one) —
+  not added: this site has no analytics/tracking cookies to consent to, so a
+  consent banner would describe tracking that doesn't exist. Add this only if
+  the client later wants Google Analytics/GTM, alongside the banner
+- **Multi-language support** (`gombianboutique.co.za`, `tcbh.co.za` use
+  `@nuxtjs/i18n`) — no indication Zero11's clients need a second language
 
 ## See Also
 - Sibling project conventions: `../solid-rock.co.za/CLAUDE.md` (most current reference
