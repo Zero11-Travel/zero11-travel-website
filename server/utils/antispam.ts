@@ -27,7 +27,10 @@ export const validateEmailContent = (subject: string, html: string, text?: strin
     /make money fast/i,
   ]
 
-  const content = `${subject} ${html} ${text || ''}`.toLowerCase()
+  // Not lowercased: every spam-indicator regex already has the /i flag and
+  // the link-count regex has /gi, but calculateCapitalizationRatio() needs
+  // original casing to do anything at all.
+  const content = `${subject} ${html} ${text || ''}`
 
   for (const indicator of spamIndicators) {
     if (indicator.test(content)) {

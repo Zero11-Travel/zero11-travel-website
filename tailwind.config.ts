@@ -1,11 +1,10 @@
 import type { Config } from 'tailwindcss'
 
 export default {
+  // Nuxt 4 keeps all Vue files under app/ — no separate root-level
+  // components/pages/layouts directories exist in this project.
   content: [
     './app/**/*.{js,ts,vue}',
-    './components/**/*.{js,ts,vue}',
-    './pages/**/*.{js,ts,vue}',
-    './layouts/**/*.{js,ts,vue}',
   ],
   darkMode: 'class',
   theme: {
