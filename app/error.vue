@@ -16,7 +16,7 @@ function handleClear() {
   <div class="flex min-h-screen flex-col font-body text-zero11-black">
     <div class="flex flex-1 items-center justify-center bg-zero11-black px-6 py-24 text-center">
       <div>
-        <img src="/images/logo.jpeg" alt="Zero11 Travel & Tours" class="mx-auto mb-8 h-16 w-auto rounded bg-white p-1" />
+        <img src="/images/logo-light.svg" alt="Zero11 Travel & Tours" width="192" height="101" class="mx-auto mb-8 h-20 w-auto" />
         <p class="mb-3 font-heading text-6xl font-bold text-zero11-red-600">{{ error.statusCode }}</p>
         <h1 class="mb-4 font-heading text-2xl font-bold text-white">
           {{ isNotFound ? "This route doesn't exist" : 'Something went wrong' }}

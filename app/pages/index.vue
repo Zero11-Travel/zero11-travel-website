@@ -35,10 +35,12 @@ const services = [
 ]
 
 const tours = [
-  { icon: MapIcon, region: 'Johannesburg', title: 'Johannesburg City Tour', description: 'Explore the City of Gold — a vibrant mix of cultures and tranquil suburbs.', variant: 'red' as const },
-  { icon: UsersIcon, region: 'Soweto', title: 'Soweto Heritage Tour', description: "Visit Mandela House and experience Soweto's rich history and culture.", variant: 'orange' as const },
-  { icon: SunIcon, region: 'North West', title: 'Sun City & Pilanesberg', description: 'Valley of Waves and Big Five game viewing, two hours from Johannesburg.', variant: 'black' as const },
+  { icon: MapIcon, region: 'Johannesburg', title: 'Johannesburg City Tour', description: 'Explore the City of Gold — a vibrant mix of cultures and tranquil suburbs.', variant: 'red' as const, photo: 'johannesburg-skyline' },
+  { icon: UsersIcon, region: 'Soweto', title: 'Soweto Heritage Tour', description: "Visit Mandela House and experience Soweto's rich history and culture.", variant: 'orange' as const, photo: 'soweto-towers' },
+  { icon: SunIcon, region: 'North West', title: 'Sun City & Pilanesberg', description: 'Valley of Waves and Big Five game viewing, two hours from Johannesburg.', variant: 'black' as const, photo: 'rhino-game-viewing' },
 ]
+
+const moments = ['game-drive-vehicle', 'maropeng-cradle-of-humankind', 'elephants', 'blyde-river-canyon', 'fleet-shuttle-vans']
 
 const values = [
   { icon: HeartIcon, title: 'Passion', description: 'We love what we do, and it shows in every trip.' },
@@ -52,8 +54,9 @@ const values = [
   <div>
     <!-- Hero -->
     <section class="relative overflow-hidden bg-zero11-black">
-      <div class="absolute inset-0 bg-gradient-to-br from-zero11-red-900/90 via-zero11-black to-zero11-black" />
-      <div class="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-zero11-orange-600/20 blur-3xl" />
+      <AppPhoto slug="blyde-three-rondavels" eager sizes="100vw" alt="" class="absolute inset-0 h-full w-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-b from-zero11-black/70 via-zero11-black/50 to-zero11-black/80" />
+      <div class="absolute inset-0 bg-gradient-to-br from-zero11-red-900/40 via-transparent to-transparent" />
       <div class="relative mx-auto flex max-w-7xl flex-col items-center gap-10 px-6 py-24 text-center sm:py-32">
         <p class="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-zero11-orange-400">
           Johannesburg &middot; Durban &middot; Cape Town
@@ -129,6 +132,24 @@ const values = [
         <div class="mt-10 text-center">
           <NuxtLink to="/tours" class="inline-flex items-center gap-1 text-sm font-semibold text-zero11-red-600 hover:text-zero11-red-700">
             Explore all tours
+            <ChevronRightIcon class="h-4 w-4" aria-hidden="true" />
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <!-- Moments strip -->
+    <section class="bg-zero11-black py-16">
+      <div class="mx-auto max-w-7xl px-6">
+        <SectionHeading eyebrow="On the Road" title="Moments From Our Journeys" dark />
+        <ul class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          <li v-for="slug in moments" :key="slug" class="overflow-hidden rounded-xl">
+            <AppPhoto :slug="slug" sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw" class="aspect-[3/4] w-full object-cover transition-transform duration-500 hover:scale-105 motion-reduce:transition-none" />
+          </li>
+        </ul>
+        <div class="mt-8 text-center">
+          <NuxtLink to="/gallery" class="inline-flex items-center gap-1 text-sm font-semibold text-zero11-orange-500 hover:text-zero11-orange-400">
+            See the full gallery
             <ChevronRightIcon class="h-4 w-4" aria-hidden="true" />
           </NuxtLink>
         </div>

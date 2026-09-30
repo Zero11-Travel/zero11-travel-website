@@ -110,7 +110,7 @@ export default defineNuxtConfig({
       alternateName: 'Zero11 Tours and Transfers (Pty) Ltd',
       description: 'Safe, reliable and professional travel & tours service provider offering airport transfers, chauffeur drive, point-to-point, shuttle services and tours across South Africa.',
       url: siteUrl,
-      logo: '/images/logo.jpeg',
+      logo: '/images/logo.png',
       address: {
         '@type': 'PostalAddress',
         streetAddress: '9077 Ivory Park, Sisonke Street',

@@ -62,10 +62,18 @@ Sedans (Toyota Corolla Quest, Mercedes C-Class), Hyundai H-1 Wagon, VW Kombi/shu
 - **Body:** Inter
 
 ### Logo
-- `public/images/logo.jpeg` — extracted from official brand PDFs (wing-swoosh mark,
-  "ZERO" in red, "11" in red, wing icon in black/orange/red circle, "travel & tours"
-  wordmark in black). Ask the client for a vector (SVG/AI) source file if higher
-  fidelity is needed for print or large hero use.
+- `public/images/logo.svg` — true vector, rebuilt from the paths in the client's
+  business-card PDF (paper-plane arrow cutting through the "O" of ZERO, red "ZERO"/"11",
+  black "travel & tours"). `logo-light.svg` swaps black for white for dark backgrounds
+  (footer, error page). `logo.png` is a raster copy used for schema.org.
+
+### Photography
+- 17 curated client photos in `public/images/photos/` (`<slug>.webp` + `<slug>-sm.webp`),
+  registered with alt text/captions in `app/utils/photos.ts`. Raw client files (44 WhatsApp
+  images, PDFs, original logos) live in `source-assets/` (gitignored, not deployed).
+- Deliberately excluded: photos of identifiable guests/staff (no consent on record), a
+  child's poster, two stock-looking shots of unclear ownership, an out-of-scope Lesotho
+  shot, and lion-walking shots. Captions are generic where the exact location isn't confirmed.
 
 ## Source Documents (not committed — see `.gitignore`)
 - `ZERO11 BROCHURE.pdf` — services, tour destinations, fleet, booking contact
@@ -81,6 +89,7 @@ Sedans (Toyota Corolla Quest, Mercedes C-Class), Hyundai H-1 Wagon, VW Kombi/shu
 | `/tours` | Tour packages & destinations |
 | `/fleet` | Vehicle fleet showcase |
 | `/contact` | Contact form, booking enquiry, WhatsApp/phone links |
+| `/gallery` | Filterable photo gallery with accessible lightbox (native `<dialog>`) |
 | `/faq` | Common questions (accordion), sourced from brochure/portfolio facts only |
 | `/privacy-policy` | POPIA-aligned privacy notice (linked in footer) |
 
@@ -97,6 +106,7 @@ Sedans (Toyota Corolla Quest, Mercedes C-Class), Hyundai H-1 Wagon, VW Kombi/shu
 | `ValueCard.vue` | Circular icon + title + description, used for Batho Pele values |
 | `StatBadge.vue` | Big number + label, used in the homepage stats bar |
 | `CTABanner.vue` | Full-width gradient call-to-action band with a button |
+| `AppPhoto.vue` | Responsive `<img>` (640w + 1280w WebP srcset) looked up by slug from `app/utils/photos.ts` |
 | `CookieConsent.vue` | Cookie banner + preferences modal, gates GTM/Meta Pixel behind consent |
 | `ContactForm.vue` | Booking enquiry form — client validation, honeypot, posts to `/api/contact` |
 
@@ -223,7 +233,18 @@ pnpm preview         # Preview production build
    saves/reopens correctly via the footer's "Cookie Settings" link,
    `localStorage` persists the choice, zero console errors with both IDs
    unset (safe no-op state until configured)
+✅ Photo-led revamp (2026-09-30): vector logo, photo hero, photo tour/fleet cards,
+   homepage photo strip, `/gallery`; added missing Educational Tours, Hotel & Lodge
+   Booking, Attraction Bookings and Lion Park; removed unsourced claims ("Air-conditioned",
+   "Up to 14 passengers", "flight-time monitored", "multi-day itineraries", "VW Kombi")
 ⏳ **Needs client input before go-live:**
+   - **Address/email conflict:** the business card says Midriver Estate, Terenure, Kempton
+     Park 1619 and info@zero11travel.co.za; the site uses 9077 Ivory Park, Midrand and
+     kgothatso@ (from the brochure/portfolio). Confirm which is current, then update
+     footer, contact page, map embed, schema.org and geo meta
+   - Confirm the shuttle vans (photos show white Toyota HiAce-style vans)
+   - Consent to publish photos of identifiable people (several exist in source-assets)
+   - Photos for Apartheid Museum, Constitutional Hill, Gold Reef City, Sun City
    - Real SMTP credentials in `.env` (see `.env.example`) so enquiries actually send
    - Vector/high-res logo source if available (current logo was extracted from a PDF)
    - Real photography — Gemini image generation was attempted for original hero/tour

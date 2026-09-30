@@ -11,6 +11,7 @@ const navLinks = [
   { label: 'Services', to: '/services' },
   { label: 'Tours', to: '/tours' },
   { label: 'Fleet', to: '/fleet' },
+  { label: 'Gallery', to: '/gallery' },
   { label: 'FAQ', to: '/faq' },
   { label: 'Contact', to: '/contact' },
 ]
@@ -45,7 +46,7 @@ watch(() => route.fullPath, closeMenu)
     <div class="border-b border-black/5 bg-white/95 backdrop-blur">
       <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-3" aria-label="Primary">
         <NuxtLink to="/" class="flex items-center gap-2" aria-label="Zero11 Travel & Tours home">
-          <img src="/images/logo.jpeg" alt="Zero11 Travel & Tours" class="h-12 w-auto object-contain" />
+          <img src="/images/logo.svg" alt="Zero11 Travel & Tours" width="192" height="101" class="h-12 w-auto object-contain sm:h-14" />
         </NuxtLink>
 
         <ul class="hidden items-center gap-8 lg:flex">

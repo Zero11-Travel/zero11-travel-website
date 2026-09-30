@@ -8,11 +8,17 @@ defineProps<{
   passengers: string
   description: string
   features: string[]
+  photo?: string
 }>()
 </script>
 
 <template>
-  <article class="flex flex-col rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+  <article class="flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-shadow hover:shadow-md">
+    <AppPhoto v-if="photo" :slug="photo" class="h-52 w-full object-cover" />
+    <div v-else class="flex h-52 items-center justify-center bg-gradient-to-br from-zero11-black to-zero11-red-900">
+      <component :is="icon" class="h-14 w-14 text-zero11-orange-500/90" aria-hidden="true" />
+    </div>
+    <div class="flex flex-1 flex-col p-6">
     <div class="mb-4 flex items-center gap-4">
       <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-zero11-black text-zero11-orange-500">
         <component :is="icon" class="h-7 w-7" aria-hidden="true" />
@@ -31,5 +37,6 @@ defineProps<{
         {{ feature }}
       </li>
     </ul>
+    </div>
   </article>
 </template>

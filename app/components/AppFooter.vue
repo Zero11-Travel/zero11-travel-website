@@ -12,6 +12,7 @@ const quickLinks = [
   { label: 'Services', to: '/services' },
   { label: 'Tours', to: '/tours' },
   { label: 'Our Fleet', to: '/fleet' },
+  { label: 'Gallery', to: '/gallery' },
   { label: 'FAQ', to: '/faq' },
   { label: 'Contact', to: '/contact' },
 ]
@@ -22,6 +23,7 @@ const services = [
   'Point-to-Point',
   'Corporate Shuttle',
   'Tours & Sightseeing',
+  'Hotel & Lodge Booking',
 ]
 </script>
 
@@ -30,7 +32,7 @@ const services = [
     <div class="mx-auto max-w-7xl px-6 py-14">
       <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <img src="/images/logo.jpeg" alt="Zero11 Travel & Tours" class="mb-4 h-14 w-auto rounded bg-white object-contain p-1" />
+          <img src="/images/logo-light.svg" alt="Zero11 Travel & Tours" width="192" height="101" class="mb-4 h-16 w-auto object-contain" />
           <p class="text-sm leading-relaxed text-white/60">
             Your global travel companion... Africa awaits! Safe, reliable and
             professional chauffeur drive, airport transfers, shuttle services and

@@ -14,23 +14,25 @@ const fleet = [
   {
     icon: TruckIcon,
     name: 'Sedan',
-    passengers: '1–3 passengers',
-    description: 'Comfortable, fuel-efficient sedans such as the Toyota Corolla Quest — ideal for point-to-point transfers and airport runs.',
-    features: ['Air-conditioned', 'Bottled water', 'Reading material'],
+    passengers: 'Individuals & small groups',
+    photo: 'fleet-sedans',
+    description: 'Comfortable sedans such as the Toyota Corolla Quest — ideal for point-to-point transfers and airport runs.',
+    features: ['Bottled water', 'Reading material', 'Umbrellas in the rainy season'],
   },
   {
     icon: SparklesIcon,
     name: 'Executive Sedan',
-    passengers: '1–3 passengers',
+    passengers: 'Executive travel',
     description: 'A Mercedes-Benz C-Class with a professional chauffeur, for clients who expect an upmarket, premium experience.',
     features: ['Dedicated chauffeur', 'Wi-Fi on board', 'Bottled water & reading material'],
   },
   {
     icon: UserGroupIcon,
     name: 'Shuttle Van',
-    passengers: 'Up to 14 passengers',
-    description: 'Hyundai H-1 Wagon and VW Kombi shuttles for corporate groups, tours and larger travel parties.',
-    features: ['Group-friendly seating', 'Luggage space', 'Trailers available on request'],
+    passengers: 'Groups & corporate travel',
+    photo: 'fleet-shuttle-vans',
+    description: 'Hyundai H-1 Wagon and passenger shuttle vans for corporate groups, tours and larger travel parties.',
+    features: ['Group-friendly seating', 'Luggage space', 'Trailers on request (extra charge)'],
   },
 ]
 </script>

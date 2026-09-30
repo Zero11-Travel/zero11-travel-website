@@ -10,6 +10,9 @@ import {
   BeakerIcon,
   BookOpenIcon,
   CloudIcon,
+  AcademicCapIcon,
+  BuildingLibraryIcon,
+  TicketIcon,
 } from '@heroicons/vue/24/outline'
 
 useSeoMeta({
@@ -22,12 +25,15 @@ useSeoMeta({
 })
 
 const services = [
-  { icon: PaperAirplaneIcon, title: 'Airport Transfers', description: 'Dependable pickups and drop-offs for OR Tambo, King Shaka and Cape Town International — flight-time monitored so you\'re never left waiting.' },
+  { icon: PaperAirplaneIcon, title: 'Airport Transfers', description: 'Dependable pickups and drop-offs for OR Tambo, King Shaka and Cape Town International, arranged around your arrival time.' },
   { icon: TruckIcon, title: 'Chauffeur Drive', description: 'A dedicated vehicle and professional driver assigned to you for the duration of your trip, giving you the freedom to work or relax while we drive.' },
   { icon: MapPinIcon, title: 'Point-to-Point', description: 'Efficient, direct transfers between any two locations, priced competitively to help you save on travel costs.' },
   { icon: HomeIcon, title: 'Door-to-Door', description: 'Convenient collection and drop-off at your exact address — no need to arrange your own transport to a pickup point.' },
   { icon: BuildingOffice2Icon, title: 'Corporate Shuttle Services', description: 'Scheduled shuttle transport for corporate and industrial clients across Johannesburg, Durban and Cape Town.' },
-  { icon: MapIcon, title: 'Tours & Sightseeing', description: 'Tailor-made day tours and multi-day itineraries covering Johannesburg, Soweto, Sun City, Pilanesberg, Kruger and more.' },
+  { icon: MapIcon, title: 'Tours & Sightseeing', description: 'Tailor-made day tours covering Johannesburg, Soweto, Sun City, Pilanesberg, Kruger and more.' },
+  { icon: AcademicCapIcon, title: 'Educational Tours', description: 'Learning-focused excursions for schools, universities and groups, built around heritage sites and museums.' },
+  { icon: BuildingLibraryIcon, title: 'Hotel & Lodge Booking', description: 'Accommodation arranged for you, from city hotels to safari lodges, alongside your transfers and tours.' },
+  { icon: TicketIcon, title: 'Attraction Bookings', description: 'We handle tourist attraction bookings so your itinerary runs smoothly from start to finish.' },
 ]
 
 const extras = [

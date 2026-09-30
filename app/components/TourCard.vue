@@ -8,8 +8,10 @@ withDefaults(defineProps<{
   region: string
   description: string
   variant?: 'red' | 'orange' | 'black'
+  photo?: string
 }>(), {
   variant: 'red',
+  photo: undefined,
 })
 
 const gradients: Record<string, string> = {
@@ -21,7 +23,8 @@ const gradients: Record<string, string> = {
 
 <template>
   <article class="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-shadow hover:shadow-md">
-    <div :class="['flex h-32 items-center justify-center bg-gradient-to-br', gradients[variant]]">
+    <AppPhoto v-if="photo" :slug="photo" class="h-44 w-full object-cover" />
+    <div v-else :class="['flex h-44 items-center justify-center bg-gradient-to-br', gradients[variant]]">
       <component :is="icon" class="h-12 w-12 text-white/90" aria-hidden="true" />
     </div>
     <div class="p-6">
