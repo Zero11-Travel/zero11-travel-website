@@ -36,7 +36,3 @@ pnpm-workspace.yaml
 # Raw client source files (photos, PDFs, logos) — processed copies live in public/
 source-assets/
 
-# Locked leftovers of the pre-processing folders (originals live in source-assets/)
-public/images/logo/
-public/images/profile/
-public/images/gallery/
