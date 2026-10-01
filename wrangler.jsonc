@@ -1,12 +1,12 @@
-// Cloudflare Workers deployment config. Nitro's cloudflare_module preset
-// (selected by `pnpm build:cloudflare`) merges this into the generated
-// .output/server/wrangler.json and adds the static-assets binding.
-// Secrets (SMTP_*, RESEND_API_KEY, RECAPTCHA_SECRET_KEY...) are NOT stored here —
-// set them in the Cloudflare dashboard or with `wrangler secret put`.
+// Cloudflare Pages config, used by `wrangler pages deploy` / `wrangler pages dev`
+// (same workflow as the sylvester_solutions project). Build with
+// `pnpm build:cloudflare` (Nitro preset cloudflare_pages -> dist/), deploy with
+// `pnpm deploy:cloudflare`.
+// Secrets (RESEND_API_KEY, DEFAULT_EMAIL_FROM, DEFAULT_EMAIL_TO, RECAPTCHA_SECRET_KEY, ...)
+// are NOT stored here: `wrangler pages secret put <KEY> --project-name=zero11-travel-tours`.
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "zero11-travel-tours",
+  "pages_build_output_dir": "dist",
   "compatibility_date": "2025-09-01",
-  "compatibility_flags": ["nodejs_compat"],
-  "observability": { "enabled": true }
+  "compatibility_flags": ["nodejs_compat"]
 }

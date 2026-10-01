@@ -3,16 +3,16 @@
 One codebase deploys to either platform. The only difference is the Nitro
 preset chosen at build time.
 
-| | Netlify | Cloudflare (Workers + static assets) |
+| | Netlify | Cloudflare Pages |
 |---|---|---|
-| Build command | `pnpm build:netlify` | `pnpm build:cloudflare` (Workers) or `pnpm build:cloudflare-pages` (drag-and-drop) |
-| Deploy | Git push (config in `netlify.toml`) | `wrangler deploy` (config in `wrangler.jsonc`) |
-| Server runs as | Netlify Function (Node) | Cloudflare Worker (`nodejs_compat`) |
+| Build command | `pnpm build:netlify` | `pnpm build:cloudflare` |
+| Deploy | Git push (config in `netlify.toml`) | `pnpm deploy:cloudflare` (config in `wrangler.jsonc`) |
+| Server runs as | Netlify Function (Node) | Cloudflare Pages Function (`nodejs_compat`) |
 | Email transport | SMTP **or** Resend | **Resend only** (no raw SMTP sockets on Workers) |
 | Static headers | `public/_headers` + Nitro | `public/_headers` + Nitro |
 
 Both were built and smoke-tested from this repo. The Cloudflare build was also
-run on Cloudflare's own runtime (`workerd`) — all 9 pages, sitemap, robots, static assets,
+run on Cloudflare's own runtime (`workerd`, via `wrangler pages dev`) — all 9 pages, sitemap, robots, static assets,
 security headers, and the contact API (runtime secrets reach the code and the
 outbound email call is made).
 
@@ -49,52 +49,40 @@ On Netlify, one set of environment variables covers both.
 3. *Site configuration → Environment variables*: add the variables from §2.
 4. Deploy. Then add the custom domain under *Domain management*.
 
-## 4. Deploy to Cloudflare
+## 4. Deploy to Cloudflare (Pages, via the Wrangler CLI)
 
-**Git-connected (recommended):** Cloudflare dashboard → *Workers & Pages →
-Create → Import a repository*.
-
-* Build command: `pnpm build:cloudflare`
-* Deploy command: `npx wrangler deploy`
-* Add build variables and runtime secrets as described in §2.
-
-**From your own machine:**
+Same workflow as the `sylvester_solutions` project: build with the Nitro
+`cloudflare_pages` preset into `dist/`, then `wrangler pages deploy`.
+`wrangler.jsonc` carries the project name, `pages_build_output_dir` and the
+`nodejs_compat` flag, so there are no dashboard runtime settings to configure.
 
 ```bash
-pnpm wrangler login                  # one-time, opens a browser
-pnpm wrangler secret put RESEND_API_KEY
-pnpm wrangler secret put DEFAULT_EMAIL_FROM
-pnpm wrangler secret put DEFAULT_EMAIL_TO
-pnpm deploy:cloudflare               # builds, then deploys
+pnpm wrangler login                    # one-time, opens a browser
+pnpm deploy:cloudflare                 # builds, then `wrangler pages deploy dist`
 ```
 
-The Worker name is `zero11-travel-tours` (`wrangler.jsonc`); it is served at
-`zero11-travel-tours.<your-subdomain>.workers.dev` until a custom domain is attached
-(*Worker → Settings → Domains & Routes*; the domain's DNS must be on Cloudflare).
+The first deploy creates the Pages project `zero11-travel-tours` (answer the
+prompts: production branch `main`). It is served at
+`zero11-travel-tours.pages.dev`. Then set the runtime secrets (§2) — you paste
+each value at the prompt, so it never appears in a terminal history or chat:
 
-### 4b. Cloudflare Pages — drag-and-drop upload
+```bash
+pnpm wrangler pages secret put RESEND_API_KEY      --project-name=zero11-travel-tours
+pnpm wrangler pages secret put DEFAULT_EMAIL_FROM  --project-name=zero11-travel-tours
+pnpm wrangler pages secret put DEFAULT_EMAIL_TO    --project-name=zero11-travel-tours
+```
 
-The dashboard's drag-and-drop box is **Pages direct upload**, which needs a different
-build from Workers. It does run the server code (pages + contact form).
+Attach `zero11travel.co.za` / `www` under *Pages project → Custom domains*.
 
-1. Build: `pnpm build:cloudflare-pages` — output goes to the **`dist/`** folder
-   (not `.output`). The build removes `dist/_worker.js/wrangler.json`, because Pages
-   rejects it ("1 file could not be uploaded").
-2. Dashboard → *Workers & Pages → Create → Pages → Upload assets*, then drag the
-   **`dist` folder** in (about 229 files).
-3. In the new project → *Settings*:
-   * *Runtime → Compatibility flags*: add `nodejs_compat` (Production **and** Preview),
-     and set the compatibility date to `2025-09-01` or later. Direct upload does not
-     read `wrangler.jsonc`, so the site will not work correctly without this.
-   * *Variables and secrets*: add the runtime values from §2 (`RESEND_API_KEY`,
-     `DEFAULT_EMAIL_FROM`, `DEFAULT_EMAIL_TO`, …) as secrets.
-4. Build-time values (`SITE_URL`, `RECAPTCHA_SITE_KEY`, `GTM_CONTAINER_ID`,
-   `META_PIXEL_ID`) are baked in when *you* run the build, so put them in your local
-   `.env` before step 1. Re-build and re-upload to change them.
-5. Test locally first: `pnpm preview:cloudflare-pages`.
+**Do not use the dashboard drag-and-drop upload.** It rejects `_routes.json` /
+`_worker.js` ("Pages _routes.json is not supported") and cannot run the server code
+this site needs (server-rendered pages and `/api/contact`). Use the CLI above, or
+connect the GitHub repo to a Pages project with build command
+`pnpm build:cloudflare` and output directory `dist`.
 
-Every update means re-running the build and re-uploading `dist`. A Git-connected
-project (§4) removes that manual step.
+Build-time values (`SITE_URL`, `RECAPTCHA_SITE_KEY`, `GTM_CONTAINER_ID`,
+`META_PIXEL_ID`) are baked in when the build runs, so keep them in your local
+`.env` (or the Git-integration build variables) before `pnpm deploy:cloudflare`.
 
 ### Testing the Cloudflare build locally
 
@@ -102,7 +90,7 @@ project (§4) removes that manual step.
 pnpm build:cloudflare
 # put test values in .dev.vars at the project root (gitignored), e.g.
 #   RESEND_API_KEY=...   DEFAULT_EMAIL_FROM=...   DEFAULT_EMAIL_TO=...
-pnpm preview:cloudflare              # wrangler dev, http://127.0.0.1:8787
+pnpm preview:cloudflare                # wrangler pages dev, http://127.0.0.1:8788
 ```
 
 ## 5. Run only one platform on the production domain

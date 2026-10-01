@@ -124,9 +124,9 @@ pnpm build           # Build for production
 pnpm generate        # Generate static site
 pnpm preview         # Preview production build
 pnpm build:netlify      # Build with the Netlify preset
-pnpm build:cloudflare   # Build with the Cloudflare Workers preset
-pnpm preview:cloudflare # Run the Cloudflare build locally (wrangler dev)
-pnpm deploy:cloudflare  # Build + deploy to Cloudflare (needs `wrangler login`)
+pnpm build:cloudflare   # Build with the Cloudflare Pages preset -> dist/
+pnpm preview:cloudflare # Run the Cloudflare build locally (wrangler pages dev)
+pnpm deploy:cloudflare  # Build + `wrangler pages deploy` (needs `wrangler login`)
 ```
 
 ## Configuration
@@ -241,7 +241,7 @@ pnpm deploy:cloudflare  # Build + deploy to Cloudflare (needs `wrangler login`)
    homepage photo strip, `/gallery`; added missing Educational Tours, Hotel & Lodge
    Booking, Attraction Bookings and Lion Park; removed unsourced claims ("Air-conditioned",
    "Up to 14 passengers", "flight-time monitored", "multi-day itineraries", "VW Kombi")
-✅ Dual deployment (2026-10-01): same code deploys to Netlify or Cloudflare Workers —
+✅ Dual deployment (2026-10-01): same code deploys to Netlify or Cloudflare Pages (Wrangler CLI, same workflow as sylvester_solutions) —
    see `DEPLOYMENT.md`. Cloudflare build (1.37 MB server bundle) smoke-tested on the real
    `workerd` runtime; Netlify build verified. Contact email gained an HTTP transport
    (Resend) because Workers can't open SMTP sockets; SMTP stays for Netlify. Production now

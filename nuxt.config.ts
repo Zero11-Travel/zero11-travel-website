@@ -38,11 +38,9 @@ export default defineNuxtConfig({
   },
   // Deploys to both Netlify and Cloudflare from the same code. The Nitro preset
   // is auto-detected on Netlify; for Cloudflare it is set by the build script
-  // (`pnpm build:cloudflare` -> NITRO_PRESET=cloudflare_module). See DEPLOYMENT.md.
+  // (`pnpm build:cloudflare` -> NITRO_PRESET=cloudflare_pages). See DEPLOYMENT.md.
   nitro: {
     cloudflare: {
-      // Emits .wrangler/deploy/config.json so a plain `wrangler deploy` finds the build
-      deployConfig: true,
       nodeCompat: true,
     },
     // Security headers for server-rendered responses. Static files get the same
