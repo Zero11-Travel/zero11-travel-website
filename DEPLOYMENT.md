@@ -5,7 +5,7 @@ preset chosen at build time.
 
 | | Netlify | Cloudflare (Workers + static assets) |
 |---|---|---|
-| Build command | `pnpm build:netlify` | `pnpm build:cloudflare` |
+| Build command | `pnpm build:netlify` | `pnpm build:cloudflare` (Workers) or `pnpm build:cloudflare-pages` (drag-and-drop) |
 | Deploy | Git push (config in `netlify.toml`) | `wrangler deploy` (config in `wrangler.jsonc`) |
 | Server runs as | Netlify Function (Node) | Cloudflare Worker (`nodejs_compat`) |
 | Email transport | SMTP **or** Resend | **Resend only** (no raw SMTP sockets on Workers) |
@@ -71,6 +71,30 @@ pnpm deploy:cloudflare               # builds, then deploys
 The Worker name is `zero11-travel-tours` (`wrangler.jsonc`); it is served at
 `zero11-travel-tours.<your-subdomain>.workers.dev` until a custom domain is attached
 (*Worker → Settings → Domains & Routes*; the domain's DNS must be on Cloudflare).
+
+### 4b. Cloudflare Pages — drag-and-drop upload
+
+The dashboard's drag-and-drop box is **Pages direct upload**, which needs a different
+build from Workers. It does run the server code (pages + contact form).
+
+1. Build: `pnpm build:cloudflare-pages` — output goes to the **`dist/`** folder
+   (not `.output`). The build removes `dist/_worker.js/wrangler.json`, because Pages
+   rejects it ("1 file could not be uploaded").
+2. Dashboard → *Workers & Pages → Create → Pages → Upload assets*, then drag the
+   **`dist` folder** in (about 229 files).
+3. In the new project → *Settings*:
+   * *Runtime → Compatibility flags*: add `nodejs_compat` (Production **and** Preview),
+     and set the compatibility date to `2025-09-01` or later. Direct upload does not
+     read `wrangler.jsonc`, so the site will not work correctly without this.
+   * *Variables and secrets*: add the runtime values from §2 (`RESEND_API_KEY`,
+     `DEFAULT_EMAIL_FROM`, `DEFAULT_EMAIL_TO`, …) as secrets.
+4. Build-time values (`SITE_URL`, `RECAPTCHA_SITE_KEY`, `GTM_CONTAINER_ID`,
+   `META_PIXEL_ID`) are baked in when *you* run the build, so put them in your local
+   `.env` before step 1. Re-build and re-upload to change them.
+5. Test locally first: `pnpm preview:cloudflare-pages`.
+
+Every update means re-running the build and re-uploading `dist`. A Git-connected
+project (§4) removes that manual step.
 
 ### Testing the Cloudflare build locally
 

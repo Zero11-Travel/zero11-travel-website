@@ -7,6 +7,8 @@
     "build": "nuxt build",
     "build:netlify": "cross-env NITRO_PRESET=netlify nuxt build",
     "build:cloudflare": "cross-env NITRO_PRESET=cloudflare_module nuxt build",
+    "build:cloudflare-pages": "cross-env NITRO_PRESET=cloudflare_pages nuxt build && node -e \"require('fs').rmSync('dist/_worker.js/wrangler.json',{force:true})\"",
+    "preview:cloudflare-pages": "wrangler pages dev dist --compatibility-flag=nodejs_compat --compatibility-date=2025-09-01",
     "preview:cloudflare": "wrangler dev",
     "deploy:cloudflare": "pnpm build:cloudflare && wrangler deploy",
     "dev": "nuxt dev",
