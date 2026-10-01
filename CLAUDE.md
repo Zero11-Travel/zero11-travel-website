@@ -123,6 +123,10 @@ pnpm dev             # Start development server
 pnpm build           # Build for production
 pnpm generate        # Generate static site
 pnpm preview         # Preview production build
+pnpm build:netlify      # Build with the Netlify preset
+pnpm build:cloudflare   # Build with the Cloudflare Workers preset
+pnpm preview:cloudflare # Run the Cloudflare build locally (wrangler dev)
+pnpm deploy:cloudflare  # Build + deploy to Cloudflare (needs `wrangler login`)
 ```
 
 ## Configuration
@@ -237,7 +241,20 @@ pnpm preview         # Preview production build
    homepage photo strip, `/gallery`; added missing Educational Tours, Hotel & Lodge
    Booking, Attraction Bookings and Lion Park; removed unsourced claims ("Air-conditioned",
    "Up to 14 passengers", "flight-time monitored", "multi-day itineraries", "VW Kombi")
+✅ Dual deployment (2026-10-01): same code deploys to Netlify or Cloudflare Workers —
+   see `DEPLOYMENT.md`. Cloudflare build (1.37 MB server bundle) smoke-tested on the real
+   `workerd` runtime; Netlify build verified. Contact email gained an HTTP transport
+   (Resend) because Workers can't open SMTP sockets; SMTP stays for Netlify. Production now
+   returns an error instead of a fake "sent" when no email transport is configured; 5xx
+   errors no longer leak provider details; reCAPTCHA secret is read from the live env (it
+   was baked at build time, which would have silently disabled it on Cloudflare); removed
+   unused `@nuxt/image` (native sharp can't run on Workers). Security headers now have one
+   source (`nitro.routeRules`) — duplicating them in `_headers` produced invalid "DENY, DENY"
 ⏳ **Needs client input before go-live:**
+   - **Choose + verify an email provider:** create a Resend account, verify
+     zero11travel.co.za (SPF/DKIM), and set `RESEND_API_KEY` + `DEFAULT_EMAIL_FROM`
+     (or SMTP on Netlify only)
+   - Decide which platform serves the production domain (the other is staging)
    - **Address/email conflict:** the business card says Midriver Estate, Terenure, Kempton
      Park 1619 and info@zero11travel.co.za; the site uses 9077 Ivory Park, Midrand and
      kgothatso@ (from the brochure/portfolio). Confirm which is current, then update

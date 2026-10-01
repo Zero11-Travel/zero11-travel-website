@@ -11,7 +11,6 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
     '@nuxtjs/google-fonts',
-    '@nuxt/image',
     '@nuxt/icon',
     '@nuxtjs/robots',
     'nuxt-schema-org',
@@ -35,6 +34,28 @@ export default defineNuxtConfig({
       // the visitor grants marketing/analytics consent via the cookie banner
       gtmContainerId: process.env.GTM_CONTAINER_ID,
       metaPixelId: process.env.META_PIXEL_ID,
+    },
+  },
+  // Deploys to both Netlify and Cloudflare from the same code. The Nitro preset
+  // is auto-detected on Netlify; for Cloudflare it is set by the build script
+  // (`pnpm build:cloudflare` -> NITRO_PRESET=cloudflare_module). See DEPLOYMENT.md.
+  nitro: {
+    cloudflare: {
+      // Emits .wrangler/deploy/config.json so a plain `wrangler deploy` finds the build
+      deployConfig: true,
+      nodeCompat: true,
+    },
+    // Security headers for server-rendered responses. Static files get the same
+    // headers from public/_headers (honoured by both Netlify and Cloudflare).
+    routeRules: {
+      '/**': {
+        headers: {
+          'X-Content-Type-Options': 'nosniff',
+          'X-Frame-Options': 'DENY',
+          'Referrer-Policy': 'strict-origin-when-cross-origin',
+          'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+        },
+      },
     },
   },
   colorMode: {

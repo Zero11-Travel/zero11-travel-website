@@ -36,3 +36,10 @@ pnpm-workspace.yaml
 # Raw client source files (photos, PDFs, logos) — processed copies live in public/
 source-assets/
 
+
+# Cloudflare / Wrangler local state and local secrets
+.wrangler
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.netlify

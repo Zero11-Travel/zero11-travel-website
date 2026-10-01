@@ -22,11 +22,16 @@ function escapeHtml(value: string): string {
     .replace(/'/g, '&#39;')
 }
 
-/** Behind a proxy/CDN (e.g. Netlify), the socket address is the proxy's own IP. */
+/**
+ * Behind a proxy/CDN the socket address is the proxy's own IP, so prefer the
+ * header each platform sets itself: Netlify, then Cloudflare, then X-Forwarded-For.
+ * (The socket may not exist at all on edge runtimes.)
+ */
 function getClientIp(event: H3Event): string {
   const forwarded = getRequestHeader(event, 'x-nf-client-connection-ip')
+    || getRequestHeader(event, 'cf-connecting-ip')
     || getRequestHeader(event, 'x-forwarded-for')?.split(',')[0]?.trim()
-  return forwarded || event.node.req.socket.remoteAddress || 'unknown'
+  return forwarded || event.node?.req?.socket?.remoteAddress || 'unknown'
 }
 
 export default defineEventHandler(async (event: H3Event) => {
@@ -51,7 +56,10 @@ export default defineEventHandler(async (event: H3Event) => {
     // once a secret IS configured, a missing token means verification failed,
     // not "skip verification" (a blocked script or a bot bypassing the page
     // JS entirely would otherwise sail through unverified).
-    const recaptchaSecret = useRuntimeConfig().recaptchaSecretKey
+    // Read the live environment first: runtimeConfig is baked at build time, and on
+    // Cloudflare secrets only exist at runtime — a baked-in empty value would
+    // silently disable verification.
+    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY || useRuntimeConfig().recaptchaSecretKey
     if (recaptchaSecret) {
       if (!formData['g-recaptcha-response']) {
         throw createError({ statusCode: 400, statusMessage: 'reCAPTCHA verification required — please try again' })
@@ -129,9 +137,14 @@ ${formData.message}
     }
   } catch (error: any) {
     console.error('Error processing booking enquiry:', error)
+    const statusCode = error.statusCode || 500
     throw createError({
-      statusCode: error.statusCode || 500,
-      statusMessage: error.statusMessage || error.message || 'Error processing your enquiry',
+      statusCode,
+      // Client errors (validation, rate limit, reCAPTCHA) are safe to show; for
+      // server errors don't leak upstream/provider details to the visitor.
+      statusMessage: statusCode < 500
+        ? (error.statusMessage || error.message || 'Error processing your enquiry')
+        : 'We could not send your enquiry right now. Please call or WhatsApp us on +27 76 873 5815.',
     })
   }
 })

@@ -1,0 +1,8 @@
+# Static-asset caching, honoured by both Netlify and Cloudflare.
+# Security headers are NOT repeated here: nitro.routeRules in nuxt.config.ts is
+# the single source (Nitro writes them into the generated _headers for static
+# files and applies them to server-rendered responses). Repeating them would
+# duplicate the values (e.g. "DENY, DENY"), which browsers treat as invalid.
+# /_nuxt/* caching is also added by Nitro.
+/images/*
+  Cache-Control: public, max-age=31536000, immutable

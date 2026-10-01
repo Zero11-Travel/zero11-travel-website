@@ -1,4 +1,4 @@
-import { createTransport, type Transporter } from 'nodemailer'
+import type { Transporter } from 'nodemailer'
 
 export type SmtpProvider = 'gmail' | 'mailtrap' | 'mailgun' | 'sendgrid' | 'zoho' | 'ses'
 
@@ -36,7 +36,7 @@ export const getSmtpConfig = (provider: SmtpProvider): SmtpConfig => {
   return config
 }
 
-export const initSmtpTransporter = (): Transporter => {
+export const initSmtpTransporter = async (): Promise<Transporter> => {
   const defaultProvider = (process.env.DEFAULT_SMTP_PROVIDER || 'gmail').toLowerCase() as SmtpProvider
 
   const supportedProviders: SmtpProvider[] = ['gmail', 'mailtrap', 'mailgun', 'sendgrid', 'zoho', 'ses']
@@ -47,6 +47,9 @@ export const initSmtpTransporter = (): Transporter => {
   }
 
   const config = getSmtpConfig(defaultProvider)
+  // Lazy import: keeps nodemailer (and its node:net/tls usage) out of the
+  // request path on platforms where the HTTP email transport is used instead.
+  const { createTransport } = await import('nodemailer')
   return createTransport(config)
 }
 
