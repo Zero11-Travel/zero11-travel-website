@@ -6,6 +6,7 @@
   "scripts": {
     "build": "nuxt build",
     "build:netlify": "cross-env NITRO_PRESET=netlify nuxt build",
+    "build:static": "cross-env STATIC_SITE=true nuxt generate && node scripts/finalize-static.mjs",
     "build:cloudflare": "cross-env NITRO_PRESET=cloudflare_pages nuxt build && node -e \"require('fs').rmSync('dist/_worker.js/wrangler.json',{force:true})\"",
     "preview:cloudflare": "wrangler pages dev dist",
     "deploy:cloudflare": "pnpm build:cloudflare && wrangler pages deploy dist --project-name=zero11-travel-tours",

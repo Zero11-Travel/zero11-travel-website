@@ -32,6 +32,8 @@ export default defineNuxtConfig({
       recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY,
       // Remarketing/analytics — all optional, feature no-ops until set and
       // the visitor grants marketing/analytics consent via the cookie banner
+      // Set by `pnpm build:static`: no server, so the contact form hands off to WhatsApp
+      staticSite: process.env.STATIC_SITE === 'true',
       gtmContainerId: process.env.GTM_CONTAINER_ID,
       metaPixelId: process.env.META_PIXEL_ID,
     },

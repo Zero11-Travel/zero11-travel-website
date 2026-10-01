@@ -49,6 +49,30 @@ On Netlify, one set of environment variables covers both.
 3. *Site configuration → Environment variables*: add the variables from §2.
 4. Deploy. Then add the custom domain under *Domain management*.
 
+## 3b. Pure static build — dashboard drag-and-drop (no server)
+
+Cloudflare's dashboard drag-and-drop box only takes plain static files. It rejects the
+server files (`_routes.json`, `_worker.js`) with "Pages _routes.json is not supported",
+so the server-rendered build (§4) cannot be uploaded that way. For drag-and-drop, use the
+static build instead:
+
+```bash
+pnpm build:static          # pre-renders every page to plain HTML
+```
+
+Drag the **`.output/public`** folder (165 files) into the upload box. Works on any
+static host (Netlify drop, Cloudflare dashboard upload, etc.).
+
+**Trade-off: no server means no emailed enquiries.** The contact form detects the static
+build (`STATIC_SITE=true`, set by the script) and, instead of calling `/api/contact`,
+opens a **WhatsApp message to +27 76 873 5815 with the enquiry pre-filled**, with a
+"send it by email" link as a fallback. Nothing is stored by the website, and the privacy
+note on the form says so. If you later want real emailed enquiries on a static site, use an
+external form service, or switch to the CLI/Git deployment in §4.
+
+The static build also writes the security headers into `_headers`
+(`scripts/finalize-static.mjs`) and keeps the same 9 pages, sitemap and robots.txt.
+
 ## 4. Deploy to Cloudflare (Pages, via the Wrangler CLI)
 
 Same workflow as the `sylvester_solutions` project: build with the Nitro
@@ -74,7 +98,7 @@ pnpm wrangler pages secret put DEFAULT_EMAIL_TO    --project-name=zero11-travel-
 
 Attach `zero11travel.co.za` / `www` under *Pages project → Custom domains*.
 
-**Do not use the dashboard drag-and-drop upload.** It rejects `_routes.json` /
+**The dashboard drag-and-drop box does not work for this build.** It rejects `_routes.json` /
 `_worker.js` ("Pages _routes.json is not supported") and cannot run the server code
 this site needs (server-rendered pages and `/api/contact`). Use the CLI above, or
 connect the GitHub repo to a Pages project with build command

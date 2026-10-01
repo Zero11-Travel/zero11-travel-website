@@ -123,6 +123,7 @@ pnpm dev             # Start development server
 pnpm build           # Build for production
 pnpm generate        # Generate static site
 pnpm preview         # Preview production build
+pnpm build:static       # Pure static site -> .output/public (drag-and-drop; contact form uses WhatsApp)
 pnpm build:netlify      # Build with the Netlify preset
 pnpm build:cloudflare   # Build with the Cloudflare Pages preset -> dist/
 pnpm preview:cloudflare # Run the Cloudflare build locally (wrangler pages dev)
@@ -250,6 +251,11 @@ pnpm deploy:cloudflare  # Build + `wrangler pages deploy` (needs `wrangler login
    was baked at build time, which would have silently disabled it on Cloudflare); removed
    unused `@nuxt/image` (native sharp can't run on Workers). Security headers now have one
    source (`nitro.routeRules`) — duplicating them in `_headers` produced invalid "DENY, DENY"
+✅ Static build for dashboard drag-and-drop (2026-10-01): `pnpm build:static` pre-renders all
+   pages; the contact form hands off to a prefilled WhatsApp message (no server to email
+   from). Also fixed a latent bug found while testing: submitting the form before the page
+   hydrated did a native GET and put name/email/phone in the URL — the submit button is now
+   disabled until hydration
 ⏳ **Needs client input before go-live:**
    - **Choose + verify an email provider:** create a Resend account, verify
      zero11travel.co.za (SPF/DKIM), and set `RESEND_API_KEY` + `DEFAULT_EMAIL_FROM`

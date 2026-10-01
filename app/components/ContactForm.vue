@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/vue/24/outline'
 
 const todayIso = new Date().toISOString().split('T')[0]
@@ -24,11 +24,36 @@ const form = reactive({
   website: '', // honeypot — must stay empty
 })
 
+// Until the page is hydrated the form has no JS submit handler, so a native
+// submit would put the visitor's name/email/phone in the URL (GET). Keep the
+// submit button disabled until then (this also blocks Enter-key submission).
+const ready = ref(false)
+onMounted(() => { ready.value = true })
+
 const errors = reactive<Record<string, string>>({})
 const status = ref<'idle' | 'submitting' | 'success' | 'error'>('idle')
 const statusMessage = ref('')
 
-const { public: { recaptchaSiteKey } } = useRuntimeConfig()
+const { public: { recaptchaSiteKey, staticSite } } = useRuntimeConfig()
+
+// Static (drag-and-drop) builds have no server to email from, so the enquiry is
+// handed to WhatsApp as a prefilled message instead (see `pnpm build:static`).
+const WHATSAPP_NUMBER = '27768735815'
+const CONTACT_EMAIL = 'kgothatso@zero11travel.co.za'
+
+function buildEnquiryText(): string {
+  const details = [
+    `Name: ${form.name.trim()}`,
+    `Email: ${form.email.trim()}`,
+    form.phone.trim() && `Phone: ${form.phone.trim()}`,
+    `Service: ${form.service}`,
+    form.travelDate && `Preferred travel date: ${form.travelDate}`,
+  ].filter(Boolean)
+  return ['Hello Zero11, I would like to make an enquiry.', '', ...details, '', form.message.trim()].join('\n')
+}
+
+const whatsappLink = ref('')
+const mailtoLink = ref('')
 
 declare global {
   interface Window {
@@ -69,8 +94,23 @@ function validate(): boolean {
   return Object.keys(errors).length === 0
 }
 
+function handleStaticSubmit() {
+  const text = buildEnquiryText()
+  whatsappLink.value = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
+  mailtoLink.value = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Booking enquiry: ${form.service} — ${form.name.trim()}`)}&body=${encodeURIComponent(text)}`
+  // Must run synchronously inside the click so popup blockers allow it.
+  window.open(whatsappLink.value, '_blank', 'noopener')
+  status.value = 'success'
+  statusMessage.value = 'Opening WhatsApp with your enquiry ready to send. Just press send there.'
+}
+
 async function handleSubmit() {
   if (!validate()) return
+
+  if (staticSite) {
+    handleStaticSubmit()
+    return
+  }
 
   status.value = 'submitting'
   statusMessage.value = ''
@@ -194,7 +234,15 @@ async function handleSubmit() {
     <div role="status" aria-live="polite">
       <p v-if="status === 'success'" class="flex items-center gap-2 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">
         <CheckCircleIcon class="h-5 w-5 shrink-0" aria-hidden="true" />
-        {{ statusMessage }}
+        <span>
+          {{ statusMessage }}
+          <template v-if="whatsappLink">
+            Didn't open?
+            <a :href="whatsappLink" target="_blank" rel="noopener" class="font-semibold underline">Open WhatsApp</a>
+            or
+            <a :href="mailtoLink" class="font-semibold underline">send it by email</a>.
+          </template>
+        </span>
       </p>
       <p v-else-if="status === 'error'" class="flex items-center gap-2 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
         <ExclamationCircleIcon class="h-5 w-5 shrink-0" aria-hidden="true" />
@@ -204,14 +252,18 @@ async function handleSubmit() {
 
     <button
       type="submit"
-      :disabled="status === 'submitting'"
+      :disabled="!ready || status === 'submitting'"
       class="inline-flex w-full items-center justify-center rounded-full bg-zero11-red-600 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-zero11-red-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
     >
-      {{ status === 'submitting' ? 'Sending...' : 'Send Enquiry' }}
+      {{ staticSite ? 'Send via WhatsApp' : status === 'submitting' ? 'Sending...' : 'Send Enquiry' }}
     </button>
 
     <p class="text-xs text-zero11-black/50">
-      By submitting this form, you agree to our
+      <template v-if="staticSite">
+        This opens WhatsApp with your enquiry pre-filled; nothing is stored by this website.
+        By sending it you agree to our
+      </template>
+      <template v-else>By submitting this form, you agree to our</template>
       <NuxtLink to="/privacy-policy" class="underline hover:text-zero11-red-600">Privacy Policy</NuxtLink>.
       We'll only use your details to respond to your enquiry.
     </p>
