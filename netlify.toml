@@ -11,7 +11,12 @@
 
 [build]
   command = "pnpm install --no-frozen-lockfile && pnpm build:netlify"
-  publish = ".output/public"
+  # Nitro's `netlify` preset publishes static assets to `dist/` and the SSR
+  # server to `.netlify/functions-internal/server/` (Netlify auto-detects the
+  # function). NOT `.output/public` — that is only written by the `static`/
+  # `generate` presets, so pointing here would fail the deploy ("directory does
+  # not exist") on a clean build.
+  publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
