@@ -1,8 +1,14 @@
 import type { Transporter } from 'nodemailer'
 
-export type SmtpProvider = 'gmail' | 'mailtrap' | 'mailgun' | 'sendgrid' | 'zoho' | 'ses'
-
-export interface SmtpConfig {
+/**
+ * Gmail is the one email provider still sent over SMTP (via nodemailer), because
+ * it has no API-key REST transactional endpoint — the Gmail API needs full OAuth2,
+ * which is overkill for a single-recipient enquiry form. Every other provider in
+ * this codebase (Resend, Mailgun, SendGrid, Mailtrap, Zoho/ZeptoMail) sends over
+ * an HTTP REST API, so it also works on Cloudflare Workers. Gmail/SMTP does NOT
+ * work on Workers (no raw SMTP sockets) — use a REST provider there.
+ */
+export interface GmailSmtpConfig {
   host: string
   port: number
   secure: boolean
@@ -10,56 +16,39 @@ export interface SmtpConfig {
     user: string
     pass: string
   }
-  fromName?: string
 }
 
-export const getSmtpConfig = (provider: SmtpProvider): SmtpConfig => {
-  const prefix = `SMTP_${provider.toUpperCase()}`
+const getGmailConfig = (): GmailSmtpConfig => {
+  const user = process.env.SMTP_GMAIL_USER || ''
+  const pass = process.env.SMTP_GMAIL_PASS || ''
 
-  const config: SmtpConfig = {
-    host: process.env[`${prefix}_HOST`] || '',
-    port: parseInt(process.env[`${prefix}_PORT`] || '587', 10),
-    secure: process.env[`${prefix}_SECURE`] === 'true',
-    auth: {
-      user: process.env[`${prefix}_USER`] || '',
-      pass: process.env[`${prefix}_PASS`] || '',
-    },
-    fromName: process.env[`${prefix}_FROM_NAME`],
-  }
-
-  if (!config.host || !config.auth.user || !config.auth.pass) {
+  if (!user || !pass) {
     throw new Error(
-      `Missing required SMTP configuration for ${provider}. Please set ${prefix}_HOST, ${prefix}_USER, and ${prefix}_PASS in your environment variables.`,
+      'Missing Gmail SMTP configuration. Set SMTP_GMAIL_USER and SMTP_GMAIL_PASS (a Gmail App Password) in your environment variables.',
     )
   }
 
-  return config
-}
-
-export const initSmtpTransporter = async (): Promise<Transporter> => {
-  const defaultProvider = (process.env.DEFAULT_SMTP_PROVIDER || 'gmail').toLowerCase() as SmtpProvider
-
-  const supportedProviders: SmtpProvider[] = ['gmail', 'mailtrap', 'mailgun', 'sendgrid', 'zoho', 'ses']
-  if (!supportedProviders.includes(defaultProvider)) {
-    throw new Error(
-      `Unsupported SMTP provider: ${defaultProvider}. Supported providers are: ${supportedProviders.join(', ')}`,
-    )
+  return {
+    host: process.env.SMTP_GMAIL_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.SMTP_GMAIL_PORT || '587', 10),
+    secure: process.env.SMTP_GMAIL_SECURE === 'true',
+    auth: { user, pass },
   }
-
-  const config = getSmtpConfig(defaultProvider)
-  // Lazy import: keeps nodemailer (and its node:net/tls usage) out of the
-  // request path on platforms where the HTTP email transport is used instead.
-  const { createTransport } = await import('nodemailer')
-  return createTransport(config)
 }
 
-export const validateSmtpConfig = (): boolean => {
-  const defaultProvider = (process.env.DEFAULT_SMTP_PROVIDER || 'gmail').toLowerCase() as SmtpProvider
-
+export const isGmailConfigured = (): boolean => {
   try {
-    getSmtpConfig(defaultProvider)
+    getGmailConfig()
     return true
   } catch {
     return false
   }
+}
+
+export const initGmailTransporter = async (): Promise<Transporter> => {
+  const config = getGmailConfig()
+  // Lazy import: keeps nodemailer (and its node:net/tls usage) out of the request
+  // path on platforms/providers where an HTTP REST transport is used instead.
+  const { createTransport } = await import('nodemailer')
+  return createTransport(config)
 }

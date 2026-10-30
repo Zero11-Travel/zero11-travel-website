@@ -16,8 +16,10 @@ tailor-made tours & safaris across Johannesburg, Durban and Cape Town.
 - **Styling:** [Tailwind CSS v3](https://tailwindcss.com) via `@nuxtjs/tailwindcss`
 - **Package manager:** [pnpm](https://pnpm.io) (`pnpm@10`)
 - **SEO:** `@nuxtjs/sitemap`, `@nuxtjs/robots`, `nuxt-schema-org`
-- **Contact form:** server API route with nodemailer (SMTP) or Resend (HTTP),
-  rate limiting, honeypot + content checks, and optional reCAPTCHA v3
+- **Contact form:** server API route with pluggable email providers — Resend,
+  Mailgun, SendGrid, Mailtrap and Zoho over HTTP REST (work everywhere), plus
+  Gmail over SMTP (nodemailer, Netlify only) — rate limiting, honeypot + content
+  checks, and optional reCAPTCHA v3
 
 ## Pages
 
@@ -49,9 +51,12 @@ Create a `.env` from the template and fill in real values:
 cp .env.example .env
 ```
 
-- **Email transport (pick one):** SMTP (`SMTP_GMAIL_*`, works on Netlify) **or**
-  Resend (`RESEND_API_KEY`, works on Netlify *and* Cloudflare). Without a transport,
-  enquiries are logged/simulated rather than sent.
+- **Email transport (pick one):** set `RESEND_API_KEY` (recommended — HTTP REST,
+  works on Netlify *and* Cloudflare, always wins when set), or choose another via
+  `DEFAULT_EMAIL_PROVIDER` — `mailgun` / `sendgrid` / `mailtrap` / `zoho` (all HTTP
+  REST, work everywhere) or `gmail` (SMTP via nodemailer, Netlify only). Without a
+  transport, enquiries are simulated in dev and error out in production rather than
+  being silently lost.
 - **reCAPTCHA** (optional): set `RECAPTCHA_SITE_KEY` + `RECAPTCHA_SECRET_KEY` to
   enable v3 verification — the form works without them (verification is skipped).
 - **Analytics/remarketing** (optional): `GTM_CONTAINER_ID`, `META_PIXEL_ID` — gated

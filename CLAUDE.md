@@ -135,7 +135,13 @@ pnpm deploy:cloudflare  # Build + `wrangler pages deploy` (needs `wrangler login
 - **Tailwind CSS v3** via `@nuxtjs/tailwindcss`, config at `tailwind.config.ts`
 - **SEO:** `@nuxtjs/sitemap`, `@nuxtjs/robots`, `nuxt-schema-org` (Organization schema)
 - **Icons:** `@nuxt/icon`, `@heroicons/vue`, Font Awesome
-- **Contact form:** SMTP via `nodemailer`, rate limiting via `rate-limiter-flexible`,
+- **Contact form:** pluggable email providers (`server/utils/email.ts`) — Resend,
+  Mailgun, SendGrid, Mailtrap and Zoho ZeptoMail all send over their **HTTP REST
+  APIs** (so they run on Cloudflare Workers too); **Gmail is the only SMTP provider**
+  (`nodemailer`, lazy-imported in `server/utils/smtp-config.ts`, Netlify/Node only)
+  because it has no API-key REST endpoint. `RESEND_API_KEY` wins when set; otherwise
+  `DEFAULT_EMAIL_PROVIDER` selects one (default `gmail`). SES was removed. Plus
+  rate limiting via `rate-limiter-flexible`,
   honeypot field, and a fully-wired reCAPTCHA v3 flow (env-driven, following the
   pattern used on `solid-rock.co.za`): the script only loads when `RECAPTCHA_SITE_KEY`
   is set (`nuxt.config.ts`), `ContactForm.vue` calls `grecaptcha.execute()` on submit
@@ -256,10 +262,21 @@ pnpm deploy:cloudflare  # Build + `wrangler pages deploy` (needs `wrangler login
    from). Also fixed a latent bug found while testing: submitting the form before the page
    hydrated did a native GET and put name/email/phone in the URL — the submit button is now
    disabled until hydration
+✅ Email providers converted to HTTP REST (2026-10-30): Resend was already REST;
+   Mailgun, SendGrid, Mailtrap and Zoho (ZeptoMail) now send over their REST APIs
+   too (`server/utils/email.ts`), so all of them work on Cloudflare Workers, not
+   just Resend. Gmail stays on SMTP/`nodemailer` (no API-key REST endpoint) and is
+   Netlify-only; SES was removed. Provider selection: `RESEND_API_KEY` wins if set,
+   else `DEFAULT_EMAIL_PROVIDER` (default `gmail`, legacy `DEFAULT_SMTP_PROVIDER`
+   still honoured). `nodemailer` is lazy-imported only on the Gmail path, so REST
+   deploys never bundle it into the request path. `from` strings of the form
+   `"Name <email>"` are parsed into the name/email fields the JSON APIs expect.
 ⏳ **Needs client input before go-live:**
-   - **Choose + verify an email provider:** create a Resend account, verify
-     zero11travel.co.za (SPF/DKIM), and set `RESEND_API_KEY` + `DEFAULT_EMAIL_FROM`
-     (or SMTP on Netlify only)
+   - **Choose + verify an email provider:** easiest is Resend (create account,
+     verify zero11travel.co.za for SPF/DKIM, set `RESEND_API_KEY` +
+     `DEFAULT_EMAIL_FROM`). Any REST provider works on both platforms (Mailgun,
+     SendGrid, Mailtrap, Zoho via `DEFAULT_EMAIL_PROVIDER` + that provider's key);
+     Gmail SMTP is Netlify-only
    - Decide which platform serves the production domain (the other is staging)
    - **Address/email conflict:** the business card says Midriver Estate, Terenure, Kempton
      Park 1619 and info@zero11travel.co.za; the site uses 9077 Ivory Park, Midrand and

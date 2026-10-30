@@ -8,7 +8,7 @@ preset chosen at build time.
 | Build command | `pnpm build:netlify` | `pnpm build:cloudflare` |
 | Deploy | Git push (config in `netlify.toml`) | `pnpm deploy:cloudflare` (config in `wrangler.jsonc`) |
 | Server runs as | Netlify Function (Node) | Cloudflare Pages Function (`nodejs_compat`) |
-| Email transport | SMTP **or** Resend | **Resend only** (no raw SMTP sockets on Workers) |
+| Email transport | any REST provider **or** Gmail (SMTP) | any REST provider (Gmail/SMTP unavailable — no raw SMTP sockets on Workers) |
 | Static headers | `public/_headers` + Nitro | `public/_headers` + Nitro |
 
 Both were built and smoke-tested from this repo. The Cloudflare build was also
@@ -23,12 +23,18 @@ configured, the form returns an error in production** (it only simulates a send
 in local development), so a misconfigured deploy is visible rather than silently
 losing enquiries.
 
-* **Recommended for both platforms: Resend (HTTP API).** Create an account at
+* **Recommended for both platforms: Resend (HTTP REST API).** Create an account at
   resend.com, verify `zero11travel.co.za` (adds SPF/DKIM DNS records — this is
   what keeps enquiry emails out of spam), create an API key, and set
   `RESEND_API_KEY` and `DEFAULT_EMAIL_FROM` (e.g. `noreply@zero11travel.co.za`).
-* **Netlify only: SMTP** (Gmail app password etc.) via the `SMTP_*` variables in
-  `.env.example`. Do not use SMTP on Cloudflare.
+  Setting `RESEND_API_KEY` always wins over any other provider.
+* **Other HTTP REST providers** (also work on both platforms): Mailgun, SendGrid,
+  Mailtrap, or Zoho ZeptoMail. Leave `RESEND_API_KEY` empty, set
+  `DEFAULT_EMAIL_PROVIDER` to the one you want and its credentials (see
+  `.env.example`), plus `DEFAULT_EMAIL_FROM` on a domain verified with that provider.
+* **Netlify only: Gmail (SMTP via nodemailer).** Set `DEFAULT_EMAIL_PROVIDER=gmail`
+  and the `SMTP_GMAIL_*` variables. Gmail is the only provider that uses SMTP (it
+  has no API-key REST endpoint), so it does **not** work on Cloudflare Workers.
 
 ## 2. Environment variables
 
@@ -38,7 +44,9 @@ See `.env.example` for the full list. The important distinction on Cloudflare:
   variables): `SITE_URL`, `RECAPTCHA_SITE_KEY`, `GTM_CONTAINER_ID`, `META_PIXEL_ID`.
 * **Runtime secrets** (read when a request arrives — set as *secrets/variables*
   on the Worker): `RESEND_API_KEY`, `DEFAULT_EMAIL_FROM`, `DEFAULT_EMAIL_TO`,
-  `RECAPTCHA_SECRET_KEY`, any `SMTP_*`, `ANTISPAM_*`.
+  `DEFAULT_EMAIL_PROVIDER`, the chosen provider's key (`MAILGUN_API_KEY` +
+  `MAILGUN_DOMAIN`, `SENDGRID_API_KEY`, `MAILTRAP_API_TOKEN`, or `ZEPTOMAIL_TOKEN`),
+  `RECAPTCHA_SECRET_KEY`, `ANTISPAM_*`. (`SMTP_GMAIL_*` only applies on Netlify.)
 
 On Netlify, one set of environment variables covers both.
 
@@ -130,6 +138,6 @@ live one so canonical URLs, the sitemap and social tags are correct.
   instance counts separately. The honeypot, content checks and optional reCAPTCHA
   are the main defences. On Cloudflare, a free *WAF rate-limiting rule* on
   `POST /api/contact` is a real fix; on Netlify a shared store would be needed.
-* **SMTP on Cloudflare is unsupported** — use Resend (§1).
+* **Gmail/SMTP on Cloudflare is unsupported** — use any REST provider (§1).
 * `@nuxt/image` was removed (it was unused and bundles native `sharp` binaries,
   which Workers cannot run). Photos are pre-optimised WebP in `public/images/photos/`.
