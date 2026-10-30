@@ -19,5 +19,9 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20"
+  # Node 22, not 20: the build pulls in postcss-merge-longhand (via Nuxt's CSS
+  # minifier), which calls Set.prototype.difference() — a method that only
+  # exists in Node 22+. On Node 20 the build dies with
+  # "TypeError: trustedFunctions.difference is not a function".
+  NODE_VERSION = "22"
   PNPM_VERSION = "10"
