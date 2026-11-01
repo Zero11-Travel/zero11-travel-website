@@ -11,7 +11,7 @@ useSeoMeta({
 })
 
 const values = [
-  { icon: HeartIcon, title: 'Passion', description: 'We love what we do, and it shows in every trip.' },
+  { icon: HeartIcon, title: 'Passion', description: 'We love what we do and it shows in every trip.' },
   { icon: ShieldCheckIcon, title: 'Safety', description: 'Your safety is the foundation of every journey we plan.' },
   { icon: ClockIcon, title: 'Reliability', description: 'On time, every time — you can count on us.' },
   { icon: CheckBadgeIcon, title: 'Professionalism', description: 'Dedicated, experienced drivers who represent our brand with pride.' },
@@ -37,8 +37,8 @@ const companyFacts = [
           Your Global Travel Companion
         </h1>
         <p class="mt-5 text-lg text-white/70">
-          An inbound tour operating company based in Johannesburg, South Africa —
-          proudly serving corporate and leisure travellers since 2018.
+          An inbound tour-operating company based in Johannesburg, South Africa.
+          Proudly serving corporate and leisure travellers since 2018.
         </p>
       </div>
     </section>
@@ -51,11 +51,11 @@ const companyFacts = [
             Zero11 Tours &amp; Transfers is an inbound tour operating company based in
             Johannesburg, South Africa. We specialise in day excursions and
             transport solutions for corporate and industrial clients, with a
-            presence in Johannesburg, Durban and Cape Town.
+            presence in all the cities in South Africa.
           </p>
           <p class="mb-4 text-base leading-relaxed text-zero11-black/70">
             We offer chauffeur, shuttle, transfer and tour services on a
-            tailor-made basis, in line with each client's requirements — an
+            tailor-made basis, in line with each client's requirements. Ours is a
             upmarket, highly efficient service with a dedicated vehicle and
             professional driver, always focused on competitive pricing and
             cost-saving for our clients.
