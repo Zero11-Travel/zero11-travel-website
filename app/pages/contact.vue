@@ -14,7 +14,7 @@ const contactDetails = [
   { icon: PhoneIcon, label: 'Phone / WhatsApp', value: '+27 76 873 5815', href: 'tel:+27768735815' },
   { icon: EnvelopeIcon, label: 'Email', value: 'kgothatso@zero11travel.co.za', href: 'mailto:kgothatso@zero11travel.co.za' },
   { icon: MapPinIcon, label: 'Address', value: '9077 Ivory Park, Sisonke Street, Midrand, 1682', href: undefined },
-  { icon: ClockIcon, label: 'Operating Cities', value: 'Johannesburg, Durban, Cape Town', href: undefined },
+  { icon: ClockIcon, label: 'Operating Cities', value: 'all the cities in South Africw', href: undefined },
 ]
 </script>
 
@@ -25,7 +25,10 @@ const contactDetails = [
         <p class="mb-3 text-sm font-semibold uppercase tracking-wide text-zero11-orange-500">Get In Touch</p>
         <h1 class="font-heading text-4xl font-bold text-white sm:text-5xl">Book Your Next Trip</h1>
         <p class="mt-5 text-lg text-white/70">
-          We give unbeatable rates! Send us your requirements and we'll come back
+          We give unbeatable rates!
+        </p>
+        <p class="mt-5 text-lg text-white/70">
+          Send us your requirements and we'll come back
           to you with a tailor-made, competitive quote.
         </p>
       </div>
