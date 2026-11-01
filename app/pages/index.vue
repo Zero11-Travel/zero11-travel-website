@@ -26,9 +26,9 @@ useSeoMeta({
 })
 
 const services = [
-  { icon: PaperAirplaneIcon, title: 'Airport Transfers', description: 'Reliable, on-time transfers to and from OR Tambo, King Shaka and Cape Town International.' },
+  { icon: PaperAirplaneIcon, title: 'Airport Transfers', description: 'Reliable, on-time transfers to and from all the airports in South Africa.' },
   { icon: TruckIcon, title: 'Chauffeur Drive', description: 'A dedicated vehicle and professional driver, tailored to your schedule and requirements.' },
-  { icon: MapPinIcon, title: 'Point-to-Point', description: 'Door-to-door transfers across Johannesburg, Durban and Cape Town at competitive rates.' },
+  { icon: MapPinIcon, title: 'Point-to-Point', description: 'Door-to-door transfers across all major cities in South Africa.' },
   { icon: BuildingOffice2Icon, title: 'Corporate Shuttle', description: 'Dependable shuttle services for corporate and industrial clients, built around your business.' },
   { icon: MapIcon, title: 'Tours & Sightseeing', description: 'Tailor-made day tours to Soweto, Sun City, Pilanesberg, Kruger National Park and more.' },
   { icon: BuildingLibraryIcon, title: 'Hotel & Lodge Booking', description: 'End-to-end booking support for accommodation and tourist attractions.' },
