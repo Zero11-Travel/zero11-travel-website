@@ -38,7 +38,7 @@ watch(() => route.fullPath, closeMenu)
             <span>kgothatso@zero11travel.co.za</span>
           </a>
         </div>
-        <p class="text-white/70">Johannesburg · Durban · Cape Town</p>
+        <p class="text-white/70">Trusted Travels Across South Africa</p>
       </div>
     </div>
 
