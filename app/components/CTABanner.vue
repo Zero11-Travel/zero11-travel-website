@@ -16,7 +16,7 @@ withDefaults(defineProps<{
       <h2 class="font-heading text-2xl font-bold text-white sm:text-3xl">
         {{ title }}
       </h2>
-      <p v-if="subtitle" class="max-w-xl text-white/85">
+      <p v-if="subtitle" class="max-w-2xl text-white/85">
         {{ subtitle }}
       </p>
       <NuxtLink
