@@ -28,7 +28,7 @@ const tours = [
   { icon: BuildingLibraryIcon, region: 'Johannesburg', title: 'Apartheid Museum', description: 'An illustration of apartheid and 20th-century South African history, which sits next to Gold Reef City complex.', variant: 'black' as const },
   { icon: BuildingLibraryIcon, region: 'Johannesburg', title: 'Constitutional Hill', description: "A journey through South Africa's constitutional and human rights history at a site of profound significance.", variant: 'red' as const },
   { icon: SparklesIcon, region: 'Johannesburg', title: 'Gold Reef City', description: 'Discover the history of the gold rush and the lifestyle of early mine workers, plus a theme park for the family.', variant: 'orange' as const },
-  { icon: SunIcon, region: 'North West', title: 'Sun City', description: 'South Africa\'s premier holiday resort since 1979 — home to the Valley of Waves and bordering Pilanesberg National Park.', variant: 'black' as const },
+  { icon: SunIcon, region: 'North West', title: 'Sun City', description: 'South Africa\'s premier holiday resort since 1979, bordering Pilanesberg National Park and home to the Valley of Waves.', variant: 'black' as const },
   { icon: GlobeAltIcon, region: 'North West', title: 'Pilanesberg National Park', description: 'One of South Africa\'s largest parks, covering 55,000 hectares with excellent Big Five game viewing.', variant: 'red' as const, photo: 'rhino-game-viewing' },
   { icon: GlobeEuropeAfricaIcon, region: 'Gauteng', title: 'Cradle of Humankind', description: 'A UNESCO World Heritage Site showcasing millions of years of human origins.', variant: 'orange' as const, photo: 'maropeng-cradle-of-humankind' },
   { icon: BeakerIcon, region: 'Mpumalanga & Beyond', title: 'Safari Getaways', description: 'Kruger National Park, Madikwe, Mabula and Entabeni, an unforgettable Big Five safari experiences.', variant: 'black' as const, photo: 'game-drive-vehicle' },
@@ -70,7 +70,7 @@ const tours = [
 
     <CTABanner
       title="Every tour is tailor-made"
-      subtitle="Tell us the experience you're after and we'll build the itinerary around you."
+      subtitle="Tell us the experience you're after and we'll build an itinerary around you."
       cta-label="Plan My Tour"
     />
   </div>
