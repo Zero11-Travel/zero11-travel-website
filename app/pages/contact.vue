@@ -27,7 +27,7 @@ const contactDetails = [
         <p class="mt-5 text-lg text-white/70">
           We give unbeatable rates!
         </p>
-        <p class="mt-2 text-lg text-white/70">
+        <p class="mt-1 text-lg text-white/70">
           Send us your requirements and we'll come back
           to you with a tailor-made, competitive quote.
         </p>
