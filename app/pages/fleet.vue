@@ -12,7 +12,7 @@ useSeoMeta({
 
 const fleet = [
   {
-    icon: TruckIcon,
+    icon: SedanIcon,
     name: 'Sedan',
     passengers: 'Individuals & small groups',
     photo: 'White-Toyota-Sedan',
