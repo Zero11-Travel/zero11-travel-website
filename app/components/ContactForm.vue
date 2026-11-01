@@ -263,7 +263,7 @@ async function handleSubmit() {
         This opens WhatsApp with your enquiry pre-filled; nothing is stored by this website.
         By sending it you agree to our
       </template>
-      <template v-else>By submitting this form, you agree to our</template>
+      <template v-else>By submitting this form, you agree to our </template>
       <NuxtLink to="/privacy-policy" class="underline hover:text-zero11-red-600">Privacy Policy</NuxtLink>.
       We'll only use your details to respond to your enquiry.
     </p>
