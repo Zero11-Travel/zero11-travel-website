@@ -63,7 +63,7 @@ const faqs = [
         <p class="mt-5 text-lg text-white/70">
           Can't find what you're looking for?  
         </p> 
-        <p class="mt-5 text-lg text-white/35"> 
+        <p class="mt-5 text-lg text-white/70"> 
           Reach out on WhatsApp or via our contact form and we'll be happy to help.
         </p>
       </div>
