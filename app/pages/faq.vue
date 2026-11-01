@@ -13,7 +13,7 @@ useSeoMeta({
 const faqs = [
   {
     question: 'What areas do you operate in?',
-    answer: 'We\'re based in Midrand and operate across Johannesburg, Durban and Cape Town, with day tours further afield to destinations like Soweto, Sun City, Pilanesberg, the Cradle of Humankind and Kruger National Park.',
+    answer: 'We\'re based in Midrand and operate across all the cities in South Africa, with day tours further afield to destinations like Soweto, Sun City, Pilanesberg, the Cradle of Humankind and Kruger National Park.',
   },
   {
     question: 'What services do you offer?',
@@ -61,7 +61,10 @@ const faqs = [
         <p class="mb-3 text-sm font-semibold uppercase tracking-wide text-zero11-orange-500">Common Questions</p>
         <h1 class="font-heading text-4xl font-bold text-white sm:text-5xl">Frequently Asked Questions</h1>
         <p class="mt-5 text-lg text-white/70">
-          Can't find what you're looking for? Reach out on WhatsApp or via our contact form and we'll be happy to help.
+          Can't find what you're looking for?  
+        </p> 
+        <p class="mt-5 text-lg text-white/70"> 
+          Reach out on WhatsApp or via our contact form and we'll be happy to help.
         </p>
       </div>
     </section>
