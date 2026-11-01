@@ -30,13 +30,13 @@ const services = [
   { icon: TruckIcon, title: 'Chauffeur Drive', description: 'A dedicated vehicle and professional driver, tailored to your schedule and requirements.' },
   { icon: MapPinIcon, title: 'Point-to-Point', description: 'Door-to-door transfers across Johannesburg, Durban and Cape Town at competitive rates.' },
   { icon: BuildingOffice2Icon, title: 'Corporate Shuttle', description: 'Dependable shuttle services for corporate and industrial clients, built around your business.' },
-  { icon: MapIcon, title: 'Tours & Sightseeing', description: 'Tailor-made day tours to Soweto, Sun City, Pilanesberg, Kruger and more.' },
+  { icon: MapIcon, title: 'Tours & Sightseeing', description: 'Tailor-made day tours to Soweto, Sun City, Pilanesberg, Kruger National Park and more.' },
   { icon: BuildingLibraryIcon, title: 'Hotel & Lodge Booking', description: 'End-to-end booking support for accommodation and tourist attractions.' },
 ]
 
 const tours = [
   { icon: MapIcon, region: 'Johannesburg', title: 'Johannesburg City Tour', description: 'Explore the City of Gold — a vibrant mix of cultures and tranquil suburbs.', variant: 'red' as const, photo: 'johannesburg-skyline' },
-  { icon: UsersIcon, region: 'Soweto', title: 'Soweto Heritage Tour', description: "Visit Mandela House and experience Soweto's rich history and culture.", variant: 'orange' as const, photo: 'soweto-towers' },
+  { icon: UsersIcon, region: 'Soweto', title: 'Soweto Heritage Tour', description: "Visit the Mandela House and experience Soweto's rich history and culture.", variant: 'orange' as const, photo: 'soweto-towers' },
   { icon: SunIcon, region: 'North West', title: 'Sun City & Pilanesberg', description: 'Valley of Waves and Big Five game viewing, two hours from Johannesburg.', variant: 'black' as const, photo: 'rhino-game-viewing' },
 ]
 
@@ -59,15 +59,14 @@ const values = [
       <div class="absolute inset-0 bg-gradient-to-br from-zero11-red-900/40 via-transparent to-transparent" />
       <div class="relative mx-auto flex max-w-7xl flex-col items-center gap-10 px-6 py-24 text-center sm:py-32">
         <p class="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-zero11-orange-400">
-          Johannesburg &middot; Durban &middot; Cape Town
+          Trusted Travels Across South Africa
         </p>
         <h1 class="max-w-3xl font-heading text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
           Your Global Travel Companion.
           <span class="text-zero11-orange-500">Africa Awaits.</span>
         </h1>
         <p class="max-w-2xl text-lg text-white/70">
-          Safe, reliable and professional airport transfers, chauffeur drive and
-          tailor-made tours — try us, take the back seat while we drive you.
+          Enjoy safe, reliable, and professional airport transfers, chauffeur services, and tailor-made tours. Experience the difference with us — sit back, relax, and let us take you there!.
         </p>
         <div class="flex flex-col gap-4 sm:flex-row">
           <NuxtLink
