@@ -23,6 +23,7 @@ const fleet = [
     icon: SparklesIcon,
     name: 'Executive Sedan',
     passengers: 'Executive travel',
+    photo: 'fleet-sedans-sm',
     description: 'A Mercedes-Benz C-Class with a professional chauffeur, for clients who expect an upmarket, premium experience.',
     features: ['Dedicated chauffeur', 'Wi-Fi on board', 'Bottled water & reading material'],
   },
