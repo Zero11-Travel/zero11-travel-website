@@ -24,8 +24,8 @@ useSeoMeta({
 
 const tours = [
   { icon: MapIcon, region: 'Johannesburg', title: 'Johannesburg City Tour', description: 'Explore the vibrant African "City of Gold" — a mixture of cultures surrounded by tranquil suburbs.', variant: 'red' as const, photo: 'johannesburg-skyline' },
-  { icon: UsersIcon, region: 'Soweto', title: 'Soweto Tour', description: 'Visit Mandela House and discover the township established in 1930, home to four million people and rich in history.', variant: 'orange' as const, photo: 'soweto-towers' },
-  { icon: BuildingLibraryIcon, region: 'Johannesburg', title: 'Apartheid Museum', description: 'An illustration of apartheid and 20th-century South African history, part of the Gold Reef City complex.', variant: 'black' as const },
+  { icon: UsersIcon, region: 'Soweto', title: 'Soweto Tour', description: 'Visit the Mandela House and discover the township established in 1930, which is home to four million people and rich in history.', variant: 'orange' as const, photo: 'soweto-towers' },
+  { icon: BuildingLibraryIcon, region: 'Johannesburg', title: 'Apartheid Museum', description: 'An illustration of apartheid and 20th-century South African history, which sits next to Gold Reef City complex.', variant: 'black' as const },
   { icon: BuildingLibraryIcon, region: 'Johannesburg', title: 'Constitutional Hill', description: "A journey through South Africa's constitutional and human rights history at a site of profound significance.", variant: 'red' as const },
   { icon: SparklesIcon, region: 'Johannesburg', title: 'Gold Reef City', description: 'Discover the history of the gold rush and the lifestyle of early mine workers, plus a theme park for the family.', variant: 'orange' as const },
   { icon: SunIcon, region: 'North West', title: 'Sun City', description: 'South Africa\'s premier holiday resort since 1979 — home to the Valley of Waves and bordering Pilanesberg National Park.', variant: 'black' as const },
