@@ -24,7 +24,7 @@ const companyFacts = [
   ['Director', 'Kgothatso Shogole'],
   ['Ownership', '100% owned by Kgothatso Shogole'],
   ['B-BBEE Rating', 'Level 1 — Exempt Micro Enterprise (EME)'],
-  ['Operating Cities', 'Johannesburg, Durban, Cape Town'],
+  ['Operating Cities', 'All the cities in South Africa'],
 ]
 </script>
 
