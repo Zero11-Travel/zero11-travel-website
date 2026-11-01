@@ -13,7 +13,7 @@ useSeoMeta({
 const values = [
   { icon: HeartIcon, title: 'Passion', description: 'We love what we do and it shows in every trip.' },
   { icon: ShieldCheckIcon, title: 'Safety', description: 'Your safety is the foundation of every journey we plan.' },
-  { icon: ClockIcon, title: 'Reliability', description: 'On time, every time — you can count on us.' },
+  { icon: ClockIcon, title: 'Reliability', description: 'On time, every time, you can count on us.' },
   { icon: CheckBadgeIcon, title: 'Professionalism', description: 'Dedicated, experienced drivers who represent our brand with pride.' },
 ]
 
