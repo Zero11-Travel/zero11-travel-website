@@ -26,13 +26,13 @@ useSeoMeta({
 
 const services = [
   { icon: PaperAirplaneIcon, title: 'Airport Transfers', description: 'Dependable pickups and drop-offs to all the airports across South Africa, arranged around your arrival time.' },
-  { icon: TruckIcon, title: 'Chauffeur Drive', description: 'A dedicated vehicle and professional driver assigned to you for the duration of your trip, giving you the freedom to work or relax while we drive.' },
+  { icon: SedanIcon, title: 'Chauffeur Drive', description: 'A dedicated vehicle and professional driver assigned to you for the duration of your trip, giving you the freedom to work or relax while we drive.' },
   { icon: MapPinIcon, title: 'Point-to-Point', description: 'Efficient, direct transfers between any two locations, priced competitively to help you save on travel costs.' },
   { icon: HomeIcon, title: 'Door-to-Door', description: 'Convenient collection and delivery to your provided destination address.' },
   { icon: BuildingOffice2Icon, title: 'Corporate Shuttle Services', description: 'Scheduled shuttle transport for corporate and industrial clients across all the cities in South Africa.' },
   { icon: MapIcon, title: 'Tours & Sightseeing', description: 'Tailor-made day tours covering Johannesburg, Soweto, Sun City, Pilanesberg, Kruger National Park and more.' },
   { icon: AcademicCapIcon, title: 'Educational Tours', description: 'Learning-focused excursions for schools, universities and groups, built around heritage sites and museums.' },
-  { icon: BuildingLibraryIcon, title: 'Hotel & Lodge Booking', description: 'Accommodation arranged for you, from city hotels to safari lodges, alongside your transfers and tours.' },
+  { icon: HotelIcon, title: 'Hotel & Lodge Booking', description: 'Accommodation arranged for you, from city hotels to safari lodges, alongside your transfers and tours.' },
   { icon: TicketIcon, title: 'Attraction Bookings', description: 'We handle tourist attraction bookings so your itinerary runs smoothly from start to finish.' },
 ]
 
