@@ -16,7 +16,7 @@ const fleet = [
     name: 'Sedan',
     passengers: 'Individuals & small groups',
     photo: 'fleet-sedans',
-    description: 'Comfortable sedans such as the Toyota Corolla Quest — ideal for point-to-point transfers and airport runs.',
+    description: 'Comfortable sedans such as the Toyota Corolla Quest, ideal for point-to-point transfers and airport runs.',
     features: ['Bottled water', 'Reading material', 'Umbrellas in the rainy season'],
   },
   {
