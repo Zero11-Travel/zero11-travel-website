@@ -35,7 +35,7 @@ const services = [
 ]
 
 const tours = [
-  { icon: MapIcon, region: 'Johannesburg', title: 'Johannesburg City Tour', description: 'Explore the City of Gold — a vibrant mix of cultures and tranquil suburbs.', variant: 'red' as const, photo: 'johannesburg-skyline' },
+  { icon: MapIcon, region: 'Johannesburg', title: 'Johannesburg City Tour', description: 'Explore the City of Gold, a vibrant mix of cultures and tranquil suburbs.', variant: 'red' as const, photo: 'johannesburg-skyline' },
   { icon: UsersIcon, region: 'Soweto', title: 'Soweto Heritage Tour', description: "Visit the Mandela House and experience Soweto's rich history and culture.", variant: 'orange' as const, photo: 'soweto-towers' },
   { icon: SunIcon, region: 'North West', title: 'Sun City & Pilanesberg', description: 'Valley of Waves and Big Five game viewing, two hours from Johannesburg.', variant: 'black' as const, photo: 'rhino-game-viewing' },
 ]
@@ -103,7 +103,7 @@ const values = [
         <SectionHeading
           eyebrow="What We Do"
           title="Travel Services Built Around You"
-          subtitle="Our traditional business model is based on the transportation of people within corporate and other industrial markets in South Africa — tailor-made to your requirements."
+          subtitle="Our traditional business model is based on the transportation of people within corporate and other industrial markets in South Africa. It's tailor-made to your requirements."
         />
         <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <ServiceCard v-for="service in services" :key="service.title" v-bind="service" />
