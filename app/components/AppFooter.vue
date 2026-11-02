@@ -71,7 +71,7 @@ const services = [
             </li>
             <li class="flex items-center gap-2.5">
               <EnvelopeIcon class="h-5 w-5 shrink-0 text-zero11-orange-500" aria-hidden="true" />
-              <a href="mailto:kgothatso@zero11travel.co.za" class="break-all transition-colors hover:text-zero11-orange-500">kgothatso@zero11travel.co.za</a>
+              <a href="mailto:info@zero11travel.co.za" class="break-all transition-colors hover:text-zero11-orange-500">info@zero11travel.co.za</a>
             </li>
           </ul>
         </div>
