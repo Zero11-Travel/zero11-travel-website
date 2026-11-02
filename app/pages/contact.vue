@@ -12,7 +12,7 @@ useSeoMeta({
 
 const contactDetails = [
   { icon: PhoneIcon, label: 'Phone / WhatsApp', value: '+27 76 873 5815', href: 'tel:+27768735815' },
-  { icon: EnvelopeIcon, label: 'Email', value: 'kgothatso@zero11travel.co.za', href: 'mailto:kgothatso@zero11travel.co.za' },
+  { icon: EnvelopeIcon, label: 'Email', value: 'info@zero11travel.co.za', href: 'mailto:info@zero11travel.co.za' },
   { icon: MapPinIcon, label: 'Address', value: '9077 Ivory Park, Sisonke Street, Midrand, 1682', href: undefined },
   { icon: ClockIcon, label: 'Operating Cities', value: 'All the cities in South Africa', href: undefined },
 ]
