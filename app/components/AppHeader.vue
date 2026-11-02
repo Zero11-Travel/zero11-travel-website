@@ -33,9 +33,9 @@ watch(() => route.fullPath, closeMenu)
             <PhoneIcon class="h-4 w-4" aria-hidden="true" />
             <span>+27 76 873 5815</span>
           </a>
-          <a href="mailto:kgothatso@zero11travel.co.za" class="hidden items-center gap-1.5 transition-colors hover:text-zero11-orange-500 md:flex">
+          <a href="mailto:info@zero11travel.co.za" class="hidden items-center gap-1.5 transition-colors hover:text-zero11-orange-500 md:flex">
             <EnvelopeIcon class="h-4 w-4" aria-hidden="true" />
-            <span>kgothatso@zero11travel.co.za</span>
+            <span>info@zero11travel.co.za</span>
           </a>
         </div>
         <p class="text-white/70">Trusted Travels Across South Africa</p>
