@@ -8,6 +8,10 @@ export interface Photo {
   width: number
   height: number
   category: 'Johannesburg & Soweto' | 'Heritage' | 'Safari & Wildlife' | 'Scenery' | 'Our Fleet'
+  // Set false to register a photo for use on a page (tour/fleet card) but keep
+  // it out of the /gallery grid — e.g. text banners/graphics or stock vehicle
+  // shots that shouldn't sit alongside the authentic tour photography.
+  gallery?: boolean
 }
 
 export const photos: Photo[] = [
@@ -28,6 +32,17 @@ export const photos: Photo[] = [
   { slug: 'lion-resting', alt: 'A male lion asleep in the grass', caption: 'Resting lion', width: 1280, height: 947, category: 'Safari & Wildlife' },
   { slug: 'fleet-shuttle-vans', alt: 'Row of white Zero11 passenger shuttle vans parked on a brick forecourt', caption: 'Shuttle vans', width: 1280, height: 960, category: 'Our Fleet' },
   { slug: 'fleet-sedans', alt: 'Zero11 sedans and wagons parked in a row on a brick forecourt', caption: 'Sedans and wagons', width: 1280, height: 960, category: 'Our Fleet' },
+  // Client-supplied tour/attraction photography (added 2026-11)
+  { slug: 'apartheid-museum', alt: 'The Apartheid Museum entrance, with the Gold Reef City sign and roller coaster behind it', caption: 'Apartheid Museum', width: 1280, height: 720, category: 'Heritage' },
+  { slug: 'constitutional-hill', alt: 'The entrance to Constitutional Hill and the Constitutional Court in Johannesburg, with the Hillbrow Tower behind', caption: 'Constitutional Hill', width: 1280, height: 720, category: 'Heritage' },
+  { slug: 'gold-reef-city', alt: 'The Gold Reef City theme park entrance, with its gold-mine headgear and a roller coaster', caption: 'Gold Reef City', width: 1280, height: 854, category: 'Johannesburg & Soweto' },
+  { slug: 'sun-city', alt: 'Aerial view of the Sun City resort and its pool set among the bushveld hills', caption: 'Sun City resort', width: 1280, height: 854, category: 'Scenery' },
+  { slug: 'fleet-shuttle-van', alt: 'A silver Hyundai passenger shuttle van', caption: 'Shuttle van', width: 1280, height: 960, category: 'Our Fleet' },
+  // Stock/marketing vehicle shots and text graphics — used on cards only, kept out of the gallery
+  { slug: 'fleet-sedan', alt: 'A white Toyota Corolla sedan', caption: 'Sedan', width: 1280, height: 720, category: 'Our Fleet', gallery: false },
+  { slug: 'fleet-executive-sedan', alt: 'A black Mercedes-Benz C-Class executive sedan', caption: 'Executive sedan', width: 1280, height: 720, category: 'Our Fleet', gallery: false },
+  { slug: 'educational-tours', alt: 'Educational Tours graphic — students exploring heritage sites and world landmarks', caption: 'Educational tours', width: 1280, height: 720, category: 'Heritage', gallery: false },
+  { slug: 'travel-itinerary', alt: 'A sample tailor-made five-day travel itinerary', caption: 'Tailor-made itineraries', width: 1254, height: 1254, category: 'Scenery', gallery: false },
 ]
 
 const bySlug = new Map(photos.map(p => [p.slug, p]))

@@ -10,9 +10,10 @@ useSeoMeta({
   twitterDescription: 'Photos from our tours across South Africa.',
 })
 
-const categories = ['All', ...new Set(photos.map(p => p.category))]
+const galleryPhotos = photos.filter(p => p.gallery !== false)
+const categories = ['All', ...new Set(galleryPhotos.map(p => p.category))]
 const active = ref('All')
-const visible = computed(() => active.value === 'All' ? photos : photos.filter(p => p.category === active.value))
+const visible = computed(() => active.value === 'All' ? galleryPhotos : galleryPhotos.filter(p => p.category === active.value))
 
 const dialog = ref<HTMLDialogElement | null>(null)
 const current = ref(0)

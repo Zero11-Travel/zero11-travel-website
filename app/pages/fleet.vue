@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TruckIcon, UserGroupIcon, SparklesIcon } from '@heroicons/vue/24/outline'
+import { UserGroupIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 
 useSeoMeta({
   title: 'Our Fleet | Zero11 Travel & Tours',
@@ -15,7 +15,7 @@ const fleet = [
     icon: SedanIcon,
     name: 'Sedan',
     passengers: 'Individuals & small groups',
-    photo: 'White-Toyota-Sedan',
+    photo: 'fleet-sedan',
     description: 'Comfortable sedans such as the Toyota Corolla Quest, ideal for point-to-point transfers and airport runs.',
     features: ['Bottled water', 'Reading material', 'Umbrellas in the rainy season'],
   },
@@ -23,7 +23,7 @@ const fleet = [
     icon: SparklesIcon,
     name: 'Executive Sedan',
     passengers: 'Executive travel',
-    photo: 'Mercedes-Benz C-Class',
+    photo: 'fleet-executive-sedan',
     description: 'A Mercedes-Benz C-Class with a professional chauffeur, for clients who expect an upmarket, premium experience.',
     features: ['Dedicated chauffeur', 'Wi-Fi on board', 'Bottled water & reading material'],
   },
@@ -31,7 +31,7 @@ const fleet = [
     icon: UserGroupIcon,
     name: 'Shuttle Van',
     passengers: 'Groups & corporate travel',
-    photo: 'Hyundai H-1',
+    photo: 'fleet-shuttle-van',
     description: 'Hyundai H-1 Wagon and passenger shuttle vans for corporate groups, tours and larger travel parties.',
     features: ['Group-friendly seating', 'Luggage space', 'Trailers on request (extra charge)'],
   },

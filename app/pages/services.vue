@@ -11,7 +11,6 @@ import {
   BookOpenIcon,
   CloudIcon,
   AcademicCapIcon,
-  BuildingLibraryIcon,
   TicketIcon,
 } from '@heroicons/vue/24/outline'
 
