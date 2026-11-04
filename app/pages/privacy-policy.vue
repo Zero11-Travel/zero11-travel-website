@@ -93,7 +93,7 @@ useSeoMeta({
             <div class="rounded-xl bg-zero11-red-50/40 p-6">
               <p>
                 <strong class="text-zero11-black">Email:</strong>
-                <a href="mailto:kgothatso@zero11travel.co.za" class="text-zero11-red-600 hover:text-zero11-red-700"> kgothatso@zero11travel.co.za</a><br />
+                <a href="mailto:info@zero11travel.co.za" class="text-zero11-red-600 hover:text-zero11-red-700"> info@zero11travel.co.za</a><br />
                 <strong class="text-zero11-black">Phone / WhatsApp:</strong>
                 <a href="tel:+27768735815" class="text-zero11-red-600 hover:text-zero11-red-700"> +27 76 873 5815</a><br />
                 <strong class="text-zero11-black">Address:</strong> 9077 Ivory Park, Sisonke Street, Midrand, 1682
