@@ -1,0 +1,15 @@
+/* Global site styles. */
+
+/*
+ * Hide the free-tier "Powered by Netlify" badge.
+ *
+ * Netlify injects a HUD script (`/.netlify/scripts/hud`) into every page on
+ * free-plan sites, which appends `<iframe id="nl-badge-frame" title="Powered
+ * by Netlify">` directly to <body>. It is a normal element (not in a shadow
+ * root), so this rule removes it from view. The script still loads; only the
+ * badge is hidden. The fully supported way to drop the badge is to upgrade the
+ * Netlify plan — this rule is the CSS equivalent for the current free plan.
+ */
+#nl-badge-frame {
+  display: none !important;
+}

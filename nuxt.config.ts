@@ -69,6 +69,7 @@ export default defineNuxtConfig({
   },
   css: [
     '@fortawesome/fontawesome-free/css/all.min.css',
+    '~/assets/css/app.css',
   ],
   googleFonts: {
     families: {

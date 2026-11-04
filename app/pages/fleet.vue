@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { UserGroupIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 
 useSeoMeta({
   title: 'Our Fleet | Zero11 Travel & Tours',
@@ -20,7 +19,7 @@ const fleet = [
     features: ['Bottled water', 'Reading material', 'Umbrellas in the rainy season'],
   },
   {
-    icon: SparklesIcon,
+    icon: ExecutiveSedanIcon,
     name: 'Executive Sedan',
     passengers: 'Executive travel',
     photo: 'fleet-executive-sedan',
@@ -28,7 +27,7 @@ const fleet = [
     features: ['Dedicated chauffeur', 'Wi-Fi on board', 'Bottled water & reading material'],
   },
   {
-    icon: UserGroupIcon,
+    icon: ShuttleVanIcon,
     name: 'Shuttle Van',
     passengers: 'Groups & corporate travel',
     photo: 'fleet-shuttle-van',
